@@ -1,64 +1,51 @@
 package com.example.homeassistant.ui.activity
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.homeassistant.R
-import com.example.homeassistant.datasource.bluetooth.BluetoothStatusDataSource
-import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
-import com.example.homeassistant.utils.showBluetoothPermissionRationale
-import com.example.homeassistant.repository.bluetooth.BluetoothRepository
-import com.example.homeassistant.ui.viewmodel.bluetooth.BluetoothViewModel
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 
-    private lateinit var bluetoothRepository: BluetoothRepository
-    private val bluetoothViewModel: BluetoothViewModel by viewModels {
-        BluetoothViewModel.BluetoothViewModelFactory(bluetoothRepository)
-    }
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        StartupChecksActivity.startActivity(this)
-        val phonePermissionDataSource = PhonePermissionDataSource(this)
-        val bluetoothStatusDataSource = BluetoothStatusDataSource(this, lifecycleScope)
-        bluetoothRepository = BluetoothRepository(
-            phonePermissionDataSource,
-            bluetoothStatusDataSource
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val navigationController = findNavController(R.id.navigation_host_fragment)
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_today,
+                R.id.nav_sensor_records,
+                R.id.nav_weather_records,
+                R.id.nav_today_weather,
+                R.id.nav_ten_days_weather
+            ),
+            drawerLayout
         )
 
-        val retryButton = findViewById<Button>(R.id.retry_button)
-        val bluetoothStatusTextView = findViewById<TextView>(R.id.bluetooth_status)
+        setupActionBarWithNavController(navigationController, appBarConfiguration)
+        navigationView.setupWithNavController(navigationController)
 
-        bluetoothViewModel.getBluetoothStatus().observe(this) { bluetoothStatus ->
-            bluetoothStatusTextView.text = bluetoothStatus.toString()
-        }
+        StartupChecksActivity.startActivity(this)
+    }
 
-        retryButton.setOnClickListener {
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.BLUETOOTH_CONNECT
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.d(TAG, "Bluetooth permission already granted")
-            } else {
-                Log.d(TAG, "Show bluetooth permission rationale")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    showBluetoothPermissionRationale(this)
-                }
-            }
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.navigation_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

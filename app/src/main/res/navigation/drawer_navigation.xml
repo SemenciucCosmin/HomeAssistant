@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_navigation"
+    app:startDestination="@id/nav_today">
+
+    <fragment
+        android:id="@+id/nav_today"
+        android:name="com.example.homeassistant.ui.fragment.TodayFragment"
+        android:label="@string/lbl_today"
+        tools:layout="@layout/fragment_today" />
+
+    <fragment
+        android:id="@+id/nav_sensor_records"
+        android:name="com.example.homeassistant.ui.fragment.SensorRecordsFragment"
+        android:label="@string/lbl_sensor_records"
+        tools:layout="@layout/fragment_sensor_records" />
+
+    <fragment
+        android:id="@+id/nav_weather_records"
+        android:name="com.example.homeassistant.ui.fragment.WeatherRecordsFragment"
+        android:label="@string/lbl_weather_records"
+        tools:layout="@layout/fragment_weather_records" />
+
+    <fragment
+        android:id="@+id/nav_today_weather"
+        android:name="com.example.homeassistant.ui.fragment.TodayWeatherFragment"
+        android:label="@string/lbl_today_weather"
+        tools:layout="@layout/fragment_today_weather" />
+
+    <fragment
+        android:id="@+id/nav_ten_days_weather"
+        android:name="com.example.homeassistant.ui.fragment.TenDaysWeatherFragment"
+        android:label="@string/lbl_ten_days_weather"
+        tools:layout="@layout/fragment_ten_days_weather" />
+
+</navigation>
