@@ -15,4 +15,15 @@
     <string name="lbl_weather_records">Weather Records</string>
     <string name="lbl_today_weather">Today Weather</string>
     <string name="lbl_ten_days_weather">10 Days Weather</string>
+    <string name="lbl_device_management">Device Management</string>
+    <string name="lbl_add_device">Add device</string>
+
+    <string name="lbl_empty_bluetooth_device_name">No specified name</string>
+    <string name="lbl_your_paired_devices">Your paired devices</string>
+    <string name="lbl_available_devices">Available devices</string>
+    <string name="msg_select_available_device">Click on one of the available devices to start pairing with it.</string>
+    <string name="msg_select_paired_device">Click on one of the already paired devices to use it as primary device.</string>
+    <string name="msg_no_paired_device">You have no paired device.\nAdd a new device in order to use it.</string>
+    <string name="msg_device_is_paired">Device paired successfully.</string>
+
 </resources>

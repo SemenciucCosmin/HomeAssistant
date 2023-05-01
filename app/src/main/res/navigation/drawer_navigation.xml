@@ -35,4 +35,16 @@
         android:label="@string/lbl_ten_days_weather"
         tools:layout="@layout/fragment_ten_days_weather" />
 
+    <fragment
+        android:id="@+id/nav_device_management"
+        android:name="com.example.homeassistant.ui.fragment.DeviceManagementFragment"
+        android:label="@string/lbl_device_management"
+        tools:layout="@layout/fragment_device_management" />
+
+    <fragment
+        android:id="@+id/nav_add_device"
+        android:name="com.example.homeassistant.ui.fragment.AddDeviceFragment"
+        android:label="@string/lbl_add_device"
+        tools:layout="@layout/fragment_add_device" />
+
 </navigation>

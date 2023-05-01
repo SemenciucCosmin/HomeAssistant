@@ -23,6 +23,10 @@
         <item
             android:id="@+id/nav_ten_days_weather"
             android:title="@string/lbl_ten_days_weather" />
+
+        <item
+            android:id="@+id/nav_device_management"
+            android:title="@string/lbl_device_management" />
     </group>
 
 </menu>

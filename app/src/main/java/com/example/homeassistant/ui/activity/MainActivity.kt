@@ -1,5 +1,6 @@
 package com.example.homeassistant.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -33,7 +34,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_sensor_records,
                 R.id.nav_weather_records,
                 R.id.nav_today_weather,
-                R.id.nav_ten_days_weather
+                R.id.nav_ten_days_weather,
+                R.id.nav_device_management,
+                R.id.nav_add_device
             ),
             drawerLayout
         )
