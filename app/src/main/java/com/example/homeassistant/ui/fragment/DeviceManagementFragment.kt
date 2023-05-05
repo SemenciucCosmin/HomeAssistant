@@ -83,8 +83,9 @@ class DeviceManagementFragment : Fragment(), BluetoothDeviceCallback {
                     BluetoothStatus.ON -> {
                         val pairedBluetoothDevices = bluetoothAdapter.bondedDevices.toList().map {
                             StatefulBluetoothDevice(
-                                device = it,
-                                isSelected = it.address == bluetoothInformation.deviceAddress
+                                iconId = R.drawable.ic_check,
+                                showIcon = it.address == bluetoothInformation.deviceAddress,
+                                device = it
                             )
                         }
                         noPairedDevicesMessage.isVisible = pairedBluetoothDevices.isEmpty()

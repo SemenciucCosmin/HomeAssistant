@@ -28,15 +28,15 @@
         android:layout_marginHorizontal="16dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/bluetooth_device_checkmark"
+        app:layout_constraintEnd_toStartOf="@id/bluetooth_device_icon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Device address" />
 
     <ImageView
-        android:id="@+id/bluetooth_device_checkmark"
+        android:id="@+id/bluetooth_device_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_check"
+        tools:background="@drawable/ic_check"
         android:contentDescription="@null"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

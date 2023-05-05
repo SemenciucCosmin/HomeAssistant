@@ -25,7 +25,7 @@ class BluetoothDevicesAdapter(private val bluetoothDeviceCallback: BluetoothDevi
                 oldItem: StatefulBluetoothDevice,
                 newItem: StatefulBluetoothDevice
             ): Boolean {
-                return oldItem.isSelected == newItem.isSelected
+                return oldItem.showIcon == newItem.showIcon
             }
         }
     }

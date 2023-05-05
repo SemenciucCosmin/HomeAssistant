@@ -60,7 +60,10 @@ class AddDeviceFragment : Fragment(), BluetoothDeviceCallback {
                     device?.let {
                         if (!bluetoothAdapter.bondedDevices.contains(it)) {
                             bluetoothViewModel.addBluetoothDevice(
-                                StatefulBluetoothDevice(device = it)
+                                StatefulBluetoothDevice(
+                                    showIcon = true,
+                                    device = it
+                                )
                             )
                         }
                     }
