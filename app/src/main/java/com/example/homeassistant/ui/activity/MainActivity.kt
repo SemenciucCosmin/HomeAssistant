@@ -1,9 +1,11 @@
 package com.example.homeassistant.ui.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,6 +13,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.homeassistant.R
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -36,13 +39,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_today_weather,
                 R.id.nav_ten_days_weather,
                 R.id.nav_device_management,
-                R.id.nav_add_device
+                R.id.nav_add_device,
+                R.id.nav_settings
             ),
             drawerLayout
         )
 
         setupActionBarWithNavController(navigationController, appBarConfiguration)
         navigationView.setupWithNavController(navigationController)
+        navigationView.setBackgroundColor(
+            MaterialColors.getColor(
+                this,
+                com.google.android.material.R.attr.colorSurface,
+                Color.BLACK
+            )
+        )
 
         StartupChecksActivity.startActivity(this)
     }

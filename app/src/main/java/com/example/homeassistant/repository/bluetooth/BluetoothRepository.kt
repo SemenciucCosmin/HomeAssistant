@@ -6,7 +6,7 @@ import android.os.Build
 import com.example.homeassistant.datasource.bluetooth.BluetoothStatusDataSource
 import com.example.homeassistant.datasource.bluetooth.DeviceDataSource
 import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
-import com.example.homeassistant.repository.model.BluetoothStatus
+import com.example.homeassistant.repository.bluetooth.model.BluetoothStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

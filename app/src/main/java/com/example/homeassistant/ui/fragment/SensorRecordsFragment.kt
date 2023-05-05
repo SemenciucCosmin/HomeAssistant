@@ -18,7 +18,7 @@ import com.example.homeassistant.datasource.bluetooth.BluetoothStatusDataSource
 import com.example.homeassistant.datasource.bluetooth.DeviceDataSource
 import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
 import com.example.homeassistant.repository.bluetooth.BluetoothRepository
-import com.example.homeassistant.repository.model.BluetoothStatus
+import com.example.homeassistant.repository.bluetooth.model.BluetoothStatus
 import com.example.homeassistant.ui.viewmodel.bluetooth.BluetoothViewModel
 import com.example.homeassistant.utils.showBluetoothPermissionRationale
 import com.example.homeassistant.utils.showBluetoothStatusRationale
@@ -71,7 +71,7 @@ class SensorRecordsFragment : Fragment() {
                             val selectedDevice = bluetoothAdapter.bondedDevices.firstOrNull {
                                 it.address == bluetoothInformation.deviceAddress
                             }
-                            if (selectedDevice != null) {
+                            if (selectedDevice != null && selectedDevice.uuids != null) {
                                 val uuid = selectedDevice.uuids.first().uuid
                                 bluetoothSocket =
                                     selectedDevice.createRfcommSocketToServiceRecord(uuid)

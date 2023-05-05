@@ -31,7 +31,7 @@ import com.example.homeassistant.datasource.bluetooth.DeviceDataSource
 import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
 import com.example.homeassistant.domain.bluetooth.StatefulBluetoothDevice
 import com.example.homeassistant.repository.bluetooth.BluetoothRepository
-import com.example.homeassistant.repository.model.BluetoothStatus
+import com.example.homeassistant.repository.bluetooth.model.BluetoothStatus
 import com.example.homeassistant.ui.adapter.BluetoothDevicesAdapter
 import com.example.homeassistant.ui.adapter.model.BluetoothDeviceCallback
 import com.example.homeassistant.ui.viewmodel.bluetooth.BluetoothViewModel

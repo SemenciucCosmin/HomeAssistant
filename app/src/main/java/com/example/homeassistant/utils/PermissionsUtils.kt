@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.example.homeassistant.R
 
 fun showBluetoothPermissionRationale(context: Context) {
-    val alertDialogBuilder = AlertDialog.Builder(context)
+    val alertDialogBuilder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
     alertDialogBuilder.apply {
         setTitle(R.string.bluetooth_permission_rationale_title)
         setMessage(R.string.bluetooth_permission_rationale_message)
@@ -32,7 +32,7 @@ fun showBluetoothPermissionRationale(context: Context) {
 }
 
 fun showBluetoothStatusRationale(context: Context) {
-    val alertDialogBuilder = AlertDialog.Builder(context)
+    val alertDialogBuilder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
     alertDialogBuilder.apply {
         setTitle(R.string.bluetooth_status_rationale_title)
         setMessage(R.string.bluetooth_status_rationale_message)

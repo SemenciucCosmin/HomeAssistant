@@ -6,27 +6,38 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_today"
-            android:title="@string/lbl_today" />
+            android:title="@string/lbl_today"
+            android:icon="@drawable/ic_calendar"/>
 
         <item
             android:id="@+id/nav_sensor_records"
-            android:title="@string/lbl_sensor_records" />
+            android:title="@string/lbl_sensor_records"
+            android:icon="@drawable/ic_statistics"/>
 
         <item
             android:id="@+id/nav_weather_records"
-            android:title="@string/lbl_weather_records" />
+            android:title="@string/lbl_weather_records"
+            android:icon="@drawable/ic_statistics"/>
 
         <item
             android:id="@+id/nav_today_weather"
-            android:title="@string/lbl_today_weather" />
+            android:title="@string/lbl_today_weather"
+            android:icon="@drawable/ic_weather"/>
 
         <item
             android:id="@+id/nav_ten_days_weather"
-            android:title="@string/lbl_ten_days_weather" />
+            android:title="@string/lbl_ten_days_weather"
+            android:icon="@drawable/ic_weather"/>
 
         <item
             android:id="@+id/nav_device_management"
-            android:title="@string/lbl_device_management" />
+            android:title="@string/lbl_device_management"
+            android:icon="@drawable/ic_bluetooth"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:title="@string/lbl_settings"
+            android:icon="@drawable/ic_settings"/>
     </group>
 
 </menu>

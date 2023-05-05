@@ -2,43 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bluetooth_device_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_effect"
-    android:paddingVertical="16dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="6dp">
 
-    <TextView
-        android:id="@+id/bluetooth_device_name"
+    <ImageView
+        android:id="@+id/settings_tab_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxWidth="150dp"
-        android:maxLines="1"
-        android:textSize="16sp"
+        android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Device namemnbvcdfghjjhgfdsdfghjhgfd" />
+        tools:background="@drawable/ic_settings" />
 
     <TextView
-        android:id="@+id/bluetooth_device_address"
+        android:id="@+id/settings_tab_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textSize="16sp"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/bluetooth_device_checkmark"
+        app:layout_constraintStart_toEndOf="@id/settings_tab_icon"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Device address" />
+        tools:text="Settings title" />
 
-    <ImageView
-        android:id="@+id/bluetooth_device_checkmark"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/settings_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_check"
-        android:contentDescription="@null"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

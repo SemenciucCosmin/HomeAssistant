@@ -26,4 +26,28 @@
     <string name="msg_no_paired_device">You have no paired device.\nAdd a new device in order to use it.</string>
     <string name="msg_device_is_paired">Device paired successfully.</string>
 
+    <string name="lbl_settings_title_time">Time</string>
+    <string name="lbl_settings_title_units">Units</string>
+    <string name="lbl_settings_title_notifications">Notifications</string>
+
+    <string name="lbl_settings_tab_am_pm">AM/PM</string>
+    <string name="lbl_settings_tab_temperature">Temperature</string>
+    <string name="lbl_settings_tab_speed">Speed</string>
+    <string name="lbl_settings_tab_pressure">Pressure</string>
+    <string name="lbl_settings_tab_notifications">Show notifications</string>
+
+    <string name="lbl_unit_celsius">Celsius</string>
+    <string name="lbl_unit_fahrenheit">Fahrenheit</string>
+    <string name="lbl_unit_kelvin">Kelvin</string>
+
+    <string name="lbl_unit_meters_per_second">m/s</string>
+    <string name="lbl_unit_kilometers_per_hour">km/h</string>
+    <string name="lbl_unit_miles_per_hour">m/h</string>
+    <string name="lbl_unit_knots">kn</string>
+
+    <string name="lbl_unit_hpa">hPa</string>
+    <string name="lbl_unit_kpa">kPa</string>
+    <string name="lbl_unit_mmHg">mmHg</string>
+    <string name="lbl_unit_inHg">inHg</string>
+
 </resources>

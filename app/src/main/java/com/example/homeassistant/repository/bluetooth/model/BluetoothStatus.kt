@@ -1,4 +1,4 @@
-package com.example.homeassistant.repository.model
+package com.example.homeassistant.repository.bluetooth.model
 
 enum class BluetoothStatus {
     ON,
