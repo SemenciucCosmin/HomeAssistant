@@ -12,9 +12,9 @@ data class CurrentWeatherDto(
     @Json(name = "visibility")
     val visibility: Int? = null,
     @Json(name = "wind")
-    val wind: WindDto? = null,
+    val windDto: WindDto? = null,
     @Json(name = "clouds")
-    val clouds: CloudsDto? = null,
+    val cloudsDto: CloudsDto? = null,
     @Json(name = "dt")
     val dateTime: Long? = null,
     @Json(name = "sys")

@@ -31,10 +31,12 @@ class TodayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         weatherApiViewModel.getCurrentWeather(46.781773f, 23.612390f)
+        weatherApiViewModel.getFiveDaysWeather(46.781773f, 23.612390f)
         weatherApiViewModel.getAirPollution(46.781773f, 23.612390f)
 
         weatherApiViewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             val currentWeather = uiState.currentWeather
+            val fiveDaysWeather = uiState.fiveDaysWeather
             val airPollution = uiState.airPollution
             val timeFormatter = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.ENGLISH)
             val date = timeFormatter.format(Date((currentWeather?.dateTime ?: 0L) * 1000))

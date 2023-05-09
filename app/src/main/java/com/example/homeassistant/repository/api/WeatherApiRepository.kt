@@ -3,6 +3,7 @@ package com.example.homeassistant.repository.api
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.dto.AirPollutionDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
+import com.example.homeassistant.domain.api.dto.FiveDaysWeatherDto
 import com.example.homeassistant.service.WeatherApiService
 import java.io.IOException
 
@@ -13,6 +14,16 @@ class WeatherApiRepository {
     ): CallResult<CurrentWeatherDto> {
         return safeApiCall(
             call = { getCurrentWeatherCall(latitude, longitude) },
+            errorMessage = "Exception occurred"
+        )
+    }
+
+    suspend fun getFiveDaysWeather(
+        latitude: Float,
+        longitude: Float
+    ): CallResult<FiveDaysWeatherDto> {
+        return safeApiCall(
+            call = { getFiveDaysWeatherCall(latitude, longitude) },
             errorMessage = "Exception occurred"
         )
     }
@@ -32,6 +43,27 @@ class WeatherApiRepository {
         longitude: Float
     ): CallResult<CurrentWeatherDto> {
         val response = WeatherApiService.currentWeatherRetrofitService.getCurrentWeather(
+            latitude,
+            longitude
+        )
+
+        return if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                CallResult.Success(body)
+            } else {
+                CallResult.Error(Exception(response.errorBody().toString()))
+            }
+        } else {
+            CallResult.Error(Exception(response.errorBody().toString()))
+        }
+    }
+
+    private suspend fun getFiveDaysWeatherCall(
+        latitude: Float,
+        longitude: Float
+    ): CallResult<FiveDaysWeatherDto> {
+        val response = WeatherApiService.fiveDaysWeatherRetrofitService.getFiveDaysWeather(
             latitude,
             longitude
         )
