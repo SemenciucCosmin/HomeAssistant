@@ -88,6 +88,7 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
                             longitude = callResult.data.locationDto?.longitude ?: 0f
                         ),
                         dateTime = details?.dateTime ?: 0L,
+                        airQualityIndex = details?.airQualityDto?.index ?: 0,
                         carbonMonoxide = details?.componentsDto?.carbonMonoxide ?: 0f,
                         nitrogenMonoxide = details?.componentsDto?.nitrogenMonoxide ?: 0f,
                         nitrogenDioxide = details?.componentsDto?.nitrogenDioxide ?: 0f,

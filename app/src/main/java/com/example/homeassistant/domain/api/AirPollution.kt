@@ -5,6 +5,7 @@ import com.example.homeassistant.domain.settings.Location
 data class AirPollution(
     val location: Location,
     val dateTime: Long,
+    val airQualityIndex: Int,
     val carbonMonoxide: Float,
     val nitrogenMonoxide: Float,
     val nitrogenDioxide: Float,
