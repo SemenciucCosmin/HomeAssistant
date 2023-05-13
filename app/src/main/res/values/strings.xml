@@ -50,4 +50,32 @@
     <string name="lbl_unit_mmHg">mmHg</string>
     <string name="lbl_unit_inHg">inHg</string>
 
+    <string name="lbl_card_title_sensor_data">Sensor Data</string>
+    <string name="lbl_card_field_sensor_temperature">Sensor temperature: %s</string>
+    <string name="lbl_card_field_sensor_humidity">Sensor humidity: %s</string>
+
+    <string name="lbl_card_title_current_weather">Current Weather</string>
+    <string name="lbl_card_field_current_temperature_title">Current temperature</string>
+    <string name="lbl_card_field_feels_like_title">Feels like</string>
+    <string name="lbl_card_field_min_temperature">Min: %s</string>
+    <string name="lbl_card_field_max_temperature">Max: %s</string>
+
+    <string name="lbl_card_title_weather_measurements">Weather Measurements</string>
+    <string name="lbl_card_field_pressure">Pressure: %s</string>
+    <string name="lbl_card_field_humidity">Humidity: %s</string>
+    <string name="lbl_card_field_visibility">Visibility: %s</string>
+    <string name="lbl_card_field_wind_speed">Wind speed: %s</string>
+
+    <string name="lbl_card_title_weather_details">Weather Details</string>
+    <string name="lbl_card_field_city">City: %s</string>
+    <string name="lbl_card_field_cloudiness">Cloudiness: %s</string>
+    <string name="lbl_card_field_sunrise">Sunrise: %s</string>
+    <string name="lbl_card_field_sunset">Sunset: %s</string>
+
+    <string name="lbl_card_title_air_quality">Air Quality</string>
+    <string name="lbl_card_field_quality_index">Quality index: %s</string>
+    <string name="lbl_card_field_carbon_monoxide">Carbon monoxide: %s</string>
+    <string name="lbl_card_field_fine_particles">Fine particles: %s</string>
+    <string name="lbl_card_field_coarse_particles">Coarse particles: %s</string>
+
 </resources>
