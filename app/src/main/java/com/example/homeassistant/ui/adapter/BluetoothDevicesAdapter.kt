@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.homeassistant.R
 import com.example.homeassistant.domain.bluetooth.StatefulBluetoothDevice
-import com.example.homeassistant.ui.adapter.model.BluetoothDeviceCallback
 import com.example.homeassistant.ui.viewholder.BluetoothDeviceViewHolder
 
 class BluetoothDevicesAdapter(private val bluetoothDeviceCallback: BluetoothDeviceCallback) :

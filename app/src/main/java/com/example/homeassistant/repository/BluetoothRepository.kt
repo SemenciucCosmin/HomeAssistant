@@ -1,12 +1,12 @@
-package com.example.homeassistant.repository.bluetooth
+package com.example.homeassistant.repository
 
 import android.Manifest
 import android.content.Context
 import android.os.Build
-import com.example.homeassistant.datasource.bluetooth.BluetoothStatusDataSource
-import com.example.homeassistant.datasource.bluetooth.DeviceDataSource
-import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
-import com.example.homeassistant.repository.bluetooth.model.BluetoothStatus
+import com.example.homeassistant.datasource.BluetoothStatusDataSource
+import com.example.homeassistant.datasource.DeviceDataSource
+import com.example.homeassistant.datasource.PhonePermissionDataSource
+import com.example.homeassistant.domain.bluetooth.BluetoothStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

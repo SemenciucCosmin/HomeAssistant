@@ -19,15 +19,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homeassistant.R
-import com.example.homeassistant.datasource.bluetooth.BluetoothStatusDataSource
-import com.example.homeassistant.datasource.bluetooth.DeviceDataSource
-import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
+import com.example.homeassistant.datasource.BluetoothStatusDataSource
+import com.example.homeassistant.datasource.DeviceDataSource
+import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.domain.bluetooth.StatefulBluetoothDevice
-import com.example.homeassistant.repository.bluetooth.BluetoothRepository
-import com.example.homeassistant.repository.bluetooth.model.BluetoothStatus
+import com.example.homeassistant.repository.BluetoothRepository
+import com.example.homeassistant.domain.bluetooth.BluetoothStatus
 import com.example.homeassistant.ui.adapter.BluetoothDevicesAdapter
-import com.example.homeassistant.ui.adapter.model.BluetoothDeviceCallback
-import com.example.homeassistant.ui.viewmodel.bluetooth.BluetoothViewModel
+import com.example.homeassistant.ui.adapter.BluetoothDeviceCallback
+import com.example.homeassistant.ui.viewmodel.BluetoothViewModel
 import com.example.homeassistant.utils.showBluetoothPermissionRationale
 import com.example.homeassistant.utils.showBluetoothStatusRationale
 

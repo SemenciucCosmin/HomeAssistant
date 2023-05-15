@@ -1,7 +1,7 @@
-package com.example.homeassistant.repository.settings
+package com.example.homeassistant.repository
 
 import android.content.Context
-import com.example.homeassistant.datasource.settings.SettingsDataSource
+import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.settings.Location
 import com.example.homeassistant.domain.settings.Settings
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package com.example.homeassistant.ui.viewmodel.api
+package com.example.homeassistant.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import com.example.homeassistant.domain.api.Forecast
 import com.example.homeassistant.domain.api.dto.CityDto
 import com.example.homeassistant.domain.api.dto.ForecastDto
 import com.example.homeassistant.domain.settings.Location
-import com.example.homeassistant.repository.api.WeatherApiRepository
+import com.example.homeassistant.repository.WeatherApiRepository
 import com.example.homeassistant.utils.API_ERROR_MESSAGE
 import kotlinx.coroutines.launch
 
@@ -25,25 +25,25 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
     val uiState: LiveData<UiState>
         get() = _uiState
 
-    fun getCurrentWeather(latitude: Float, longitude: Float) {
+    fun getCurrentWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             when (val callResult = weatherApiRepository.getCurrentWeather(latitude, longitude)) {
                 is CallResult.Success -> {
                     val currentWeather = CurrentWeather(
                         location = Location(
-                            latitude = callResult.data.locationDto?.latitude ?: 0f,
-                            longitude = callResult.data.locationDto?.longitude ?: 0f
+                            latitude = callResult.data.locationDto?.latitude ?: 0.0,
+                            longitude = callResult.data.locationDto?.longitude ?: 0.0
                         ),
                         mainWeather = callResult.data.weatherDto?.first()?.main ?: "",
                         description = callResult.data.weatherDto?.first()?.description ?: "",
-                        temperature = callResult.data.measurementsDto?.temperature ?: 0f,
-                        feelsLike = callResult.data.measurementsDto?.feelsLike ?: 0f,
-                        maxTemperature = callResult.data.measurementsDto?.maxTemperature ?: 0f,
-                        minTemperature = callResult.data.measurementsDto?.minTemperature ?: 0f,
+                        temperature = callResult.data.measurementsDto?.temperature ?: 0.0,
+                        feelsLike = callResult.data.measurementsDto?.feelsLike ?: 0.0,
+                        maxTemperature = callResult.data.measurementsDto?.maxTemperature ?: 0.0,
+                        minTemperature = callResult.data.measurementsDto?.minTemperature ?: 0.0,
                         pressure = callResult.data.measurementsDto?.pressure ?: 0,
                         humidity = callResult.data.measurementsDto?.humidity ?: 0,
                         visibility = callResult.data.visibility ?: 0,
-                        windSpeed = callResult.data.windDto?.speed ?: 0f,
+                        windSpeed = callResult.data.windDto?.speed ?: 0.0,
                         cloudiness = callResult.data.cloudsDto?.cloudiness ?: 0,
                         dateTime = callResult.data.dateTime ?: 0L,
                         sunriseTime = callResult.data.weatherInfoDto?.sunriseTime ?: 0L,
@@ -60,7 +60,7 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         }
     }
 
-    fun getFiveDaysWeather(latitude: Float, longitude: Float) {
+    fun getFiveDaysWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             when (val callResult = weatherApiRepository.getFiveDaysWeather(latitude, longitude)) {
                 is CallResult.Success -> {
@@ -77,26 +77,26 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         }
     }
 
-    fun getAirPollution(latitude: Float, longitude: Float) {
+    fun getAirPollution(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             when (val callResult = weatherApiRepository.getAirPollution(latitude, longitude)) {
                 is CallResult.Success -> {
                     val details = callResult.data.detailsDto?.first()
                     val airPollution = AirPollution(
                         location = Location(
-                            latitude = callResult.data.locationDto?.latitude ?: 0f,
-                            longitude = callResult.data.locationDto?.longitude ?: 0f
+                            latitude = callResult.data.locationDto?.latitude ?: 0.0,
+                            longitude = callResult.data.locationDto?.longitude ?: 0.0
                         ),
                         dateTime = details?.dateTime ?: 0L,
                         airQualityIndex = details?.airQualityDto?.index ?: 0,
-                        carbonMonoxide = details?.componentsDto?.carbonMonoxide ?: 0f,
-                        nitrogenMonoxide = details?.componentsDto?.nitrogenMonoxide ?: 0f,
-                        nitrogenDioxide = details?.componentsDto?.nitrogenDioxide ?: 0f,
-                        ozone = details?.componentsDto?.ozone ?: 0f,
-                        sulphurDioxide = details?.componentsDto?.sulphurDioxide ?: 0f,
-                        fineParticles = details?.componentsDto?.fineParticles ?: 0f,
-                        coarseParticles = details?.componentsDto?.coarseParticles ?: 0f,
-                        ammonia = details?.componentsDto?.ammonia ?: 0f
+                        carbonMonoxide = details?.componentsDto?.carbonMonoxide ?: 0.0,
+                        nitrogenMonoxide = details?.componentsDto?.nitrogenMonoxide ?: 0.0,
+                        nitrogenDioxide = details?.componentsDto?.nitrogenDioxide ?: 0.0,
+                        ozone = details?.componentsDto?.ozone ?: 0.0,
+                        sulphurDioxide = details?.componentsDto?.sulphurDioxide ?: 0.0,
+                        fineParticles = details?.componentsDto?.fineParticles ?: 0.0,
+                        coarseParticles = details?.componentsDto?.coarseParticles ?: 0.0,
+                        ammonia = details?.componentsDto?.ammonia ?: 0.0
                     )
                     _uiState.value = _uiState.value?.copy(airPollution = airPollution)
                 }
@@ -112,18 +112,18 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         return forecasts.map { forecastDto ->
             Forecast(
                 dateTime = forecastDto.dateTime ?: 0L,
-                temperature = forecastDto.measurementsDto?.temperature ?: 0f,
-                feelsLike = forecastDto.measurementsDto?.feelsLike ?: 0f,
-                minTemperature = forecastDto.measurementsDto?.minTemperature ?: 0f,
-                maxTemperature = forecastDto.measurementsDto?.maxTemperature ?: 0f,
+                temperature = forecastDto.measurementsDto?.temperature ?: 0.0,
+                feelsLike = forecastDto.measurementsDto?.feelsLike ?: 0.0,
+                minTemperature = forecastDto.measurementsDto?.minTemperature ?: 0.0,
+                maxTemperature = forecastDto.measurementsDto?.maxTemperature ?: 0.0,
                 pressure = forecastDto.measurementsDto?.pressure ?: 0,
                 humidity = forecastDto.measurementsDto?.humidity ?: 0,
                 mainWeather = forecastDto.weatherDto?.first()?.main ?: "",
                 description = forecastDto.weatherDto?.first()?.description ?: "",
                 cloudiness = forecastDto.cloudsDto?.cloudiness ?: 0,
-                windSpeed = forecastDto.windDto?.speed ?: 0f,
+                windSpeed = forecastDto.windDto?.speed ?: 0.0,
                 visibility = forecastDto.visibility ?: 0,
-                precipitation = forecastDto.precipitation ?: 0f
+                precipitation = forecastDto.precipitation ?: 0.0
             )
         }
     }
@@ -132,8 +132,8 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         return City(
             name = cityDto?.name ?: "",
             location = Location(
-                latitude = cityDto?.locationDto?.latitude ?: 0f,
-                longitude = cityDto?.locationDto?.longitude ?: 0f
+                latitude = cityDto?.locationDto?.latitude ?: 0.0,
+                longitude = cityDto?.locationDto?.longitude ?: 0.0
             ),
             sunriseTime = cityDto?.sunriseTime ?: 0L,
             sunsetTime = cityDto?.sunsetTime ?: 0L,

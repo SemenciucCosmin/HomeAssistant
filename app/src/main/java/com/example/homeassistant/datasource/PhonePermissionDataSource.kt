@@ -1,4 +1,4 @@
-package com.example.homeassistant.datasource.permission
+package com.example.homeassistant.datasource
 
 import android.content.Context
 import android.content.pm.PackageManager

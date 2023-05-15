@@ -1,4 +1,4 @@
-package com.example.homeassistant.repository.api
+package com.example.homeassistant.repository
 
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.dto.AirPollutionDto
@@ -9,8 +9,8 @@ import java.io.IOException
 
 class WeatherApiRepository {
     suspend fun getCurrentWeather(
-        latitude: Float,
-        longitude: Float
+        latitude: Double,
+        longitude: Double
     ): CallResult<CurrentWeatherDto> {
         return safeApiCall(
             call = { getCurrentWeatherCall(latitude, longitude) },
@@ -19,8 +19,8 @@ class WeatherApiRepository {
     }
 
     suspend fun getFiveDaysWeather(
-        latitude: Float,
-        longitude: Float
+        latitude: Double,
+        longitude: Double
     ): CallResult<FiveDaysWeatherDto> {
         return safeApiCall(
             call = { getFiveDaysWeatherCall(latitude, longitude) },
@@ -29,8 +29,8 @@ class WeatherApiRepository {
     }
 
     suspend fun getAirPollution(
-        latitude: Float,
-        longitude: Float
+        latitude: Double,
+        longitude: Double
     ): CallResult<AirPollutionDto> {
         return safeApiCall(
             call = { getAirPollutionCall(latitude, longitude) },
@@ -39,8 +39,8 @@ class WeatherApiRepository {
     }
 
     private suspend fun getCurrentWeatherCall(
-        latitude: Float,
-        longitude: Float
+        latitude: Double,
+        longitude: Double
     ): CallResult<CurrentWeatherDto> {
         val response = WeatherApiService.currentWeatherRetrofitService.getCurrentWeather(
             latitude,
@@ -60,8 +60,8 @@ class WeatherApiRepository {
     }
 
     private suspend fun getFiveDaysWeatherCall(
-        latitude: Float,
-        longitude: Float
+        latitude: Double,
+        longitude: Double
     ): CallResult<FiveDaysWeatherDto> {
         val response = WeatherApiService.fiveDaysWeatherRetrofitService.getFiveDaysWeather(
             latitude,
@@ -81,8 +81,8 @@ class WeatherApiRepository {
     }
 
     private suspend fun getAirPollutionCall(
-        latitude: Float,
-        longitude: Float
+        latitude: Double,
+        longitude: Double
     ): CallResult<AirPollutionDto> {
         val response = WeatherApiService.airPollutionRetrofitService.getAirPollution(
             latitude,

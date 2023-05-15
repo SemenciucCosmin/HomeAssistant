@@ -4,13 +4,13 @@ import com.squareup.moshi.Json
 
 data class MeasurementsDto(
    @Json(name = "temp")
-    val temperature: Float? = null,
+    val temperature: Double? = null,
    @Json(name = "feels_like")
-    val feelsLike: Float? = null,
+    val feelsLike: Double? = null,
    @Json(name = "temp_min")
-    val minTemperature: Float? = null,
+    val minTemperature: Double? = null,
    @Json(name = "temp_max")
-    val maxTemperature: Float? = null,
+    val maxTemperature: Double? = null,
    @Json(name = "pressure")
     val pressure: Int? = null,
    @Json(name = "humidity")

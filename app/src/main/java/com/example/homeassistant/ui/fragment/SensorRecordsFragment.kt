@@ -14,12 +14,12 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.homeassistant.R
-import com.example.homeassistant.datasource.bluetooth.BluetoothStatusDataSource
-import com.example.homeassistant.datasource.bluetooth.DeviceDataSource
-import com.example.homeassistant.datasource.permission.PhonePermissionDataSource
-import com.example.homeassistant.repository.bluetooth.BluetoothRepository
-import com.example.homeassistant.repository.bluetooth.model.BluetoothStatus
-import com.example.homeassistant.ui.viewmodel.bluetooth.BluetoothViewModel
+import com.example.homeassistant.datasource.BluetoothStatusDataSource
+import com.example.homeassistant.datasource.DeviceDataSource
+import com.example.homeassistant.datasource.PhonePermissionDataSource
+import com.example.homeassistant.repository.BluetoothRepository
+import com.example.homeassistant.domain.bluetooth.BluetoothStatus
+import com.example.homeassistant.ui.viewmodel.BluetoothViewModel
 import com.example.homeassistant.utils.showBluetoothPermissionRationale
 import com.example.homeassistant.utils.showBluetoothStatusRationale
 import java.io.IOException
@@ -49,7 +49,7 @@ class SensorRecordsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val temperatureTextView = view.findViewById<TextView>(R.id.temperature)
-        val humidityTextView = view.findViewById<TextView>(R.id.humidity)
+        val humidityTextView = view.findViewById<TextView>(R.id.current_humidity)
 
         val phonePermissionDataSource = PhonePermissionDataSource(requireContext())
         val bluetoothStatusDataSource = BluetoothStatusDataSource(requireContext(), lifecycleScope)

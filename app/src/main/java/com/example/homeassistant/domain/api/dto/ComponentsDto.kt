@@ -4,19 +4,19 @@ import com.squareup.moshi.Json
 
 data class ComponentsDto(
     @Json(name = "co")
-    val carbonMonoxide: Float? = null,
+    val carbonMonoxide: Double? = null,
     @Json(name = "no")
-    val nitrogenMonoxide: Float? = null,
+    val nitrogenMonoxide: Double? = null,
     @Json(name = "no2")
-    val nitrogenDioxide: Float? = null,
+    val nitrogenDioxide: Double? = null,
     @Json(name = "o3")
-    val ozone: Float? = null,
+    val ozone: Double? = null,
     @Json(name = "so2")
-    val sulphurDioxide: Float? = null,
+    val sulphurDioxide: Double? = null,
     @Json(name = "pm2_5")
-    val fineParticles: Float? = null,
+    val fineParticles: Double? = null,
     @Json(name = "pm10")
-    val coarseParticles: Float? = null,
+    val coarseParticles: Double? = null,
     @Json(name = "nh3")
-    val ammonia: Float? = null
+    val ammonia: Double? = null
 )

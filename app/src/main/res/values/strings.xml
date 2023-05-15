@@ -11,10 +11,11 @@
     <string name="lbl_settings">Settings</string>
 
     <string name="lbl_today">Today</string>
+    <string name="lbl_ten_days_weather">10 Days Weather</string>
+    <string name="lbl_air_quality">Air Quality</string>
     <string name="lbl_sensor_records">Sensor Records</string>
     <string name="lbl_weather_records">Weather Records</string>
-    <string name="lbl_today_weather">Today Weather</string>
-    <string name="lbl_ten_days_weather">10 Days Weather</string>
+    <string name="lbl_air_quality_records">Air Quality Records</string>
     <string name="lbl_device_management">Device Management</string>
     <string name="lbl_add_device">Add device</string>
 
@@ -50,9 +51,23 @@
     <string name="lbl_unit_mmHg">mmHg</string>
     <string name="lbl_unit_inHg">inHg</string>
 
+    <string name="lbl_unit_value_celsius">%.2f °C</string>
+    <string name="lbl_unit_value_fahrenheit">%.2f °F</string>
+    <string name="lbl_unit_value_kelvin">%.2f °K</string>
+
+    <string name="lbl_unit_value_meters_per_second">%.2f m/s</string>
+    <string name="lbl_unit_value_kilometers_per_hour">%.2f km/h</string>
+    <string name="lbl_unit_value_miles_per_hour">%.2f m/h</string>
+    <string name="lbl_unit_value_knots">%.2f kn</string>
+
+    <string name="lbl_unit_value_hpa">%d hPa</string>
+    <string name="lbl_unit_value_kpa">%d kPa</string>
+    <string name="lbl_unit_value_mmHg">%d mmHg</string>
+    <string name="lbl_unit_value_inHg">%d inHg</string>
+
     <string name="lbl_card_title_sensor_data">Sensor Data</string>
     <string name="lbl_card_field_sensor_temperature">Sensor temperature: %s</string>
-    <string name="lbl_card_field_sensor_humidity">Sensor humidity: %s</string>
+    <string name="lbl_card_field_sensor_humidity">Sensor humidity: %d%%</string>
 
     <string name="lbl_card_title_current_weather">Current Weather</string>
     <string name="lbl_card_field_current_temperature_title">Current temperature</string>
@@ -62,20 +77,23 @@
 
     <string name="lbl_card_title_weather_measurements">Weather Measurements</string>
     <string name="lbl_card_field_pressure">Pressure: %s</string>
-    <string name="lbl_card_field_humidity">Humidity: %s</string>
-    <string name="lbl_card_field_visibility">Visibility: %s</string>
-    <string name="lbl_card_field_wind_speed">Wind speed: %s</string>
+    <string name="lbl_card_field_humidity">Humidity: %d%%</string>
+    <string name="lbl_card_field_visibility">Visibility: %d</string>
+    <string name="lbl_card_field_wind_speed">Wind: %s</string>
 
     <string name="lbl_card_title_weather_details">Weather Details</string>
     <string name="lbl_card_field_city">City: %s</string>
-    <string name="lbl_card_field_cloudiness">Cloudiness: %s</string>
+    <string name="lbl_card_field_cloudiness">Cloudiness: %d</string>
     <string name="lbl_card_field_sunrise">Sunrise: %s</string>
     <string name="lbl_card_field_sunset">Sunset: %s</string>
 
     <string name="lbl_card_title_air_quality">Air Quality</string>
-    <string name="lbl_card_field_quality_index">Quality index: %s</string>
-    <string name="lbl_card_field_carbon_monoxide">Carbon monoxide: %s</string>
-    <string name="lbl_card_field_fine_particles">Fine particles: %s</string>
-    <string name="lbl_card_field_coarse_particles">Coarse particles: %s</string>
+    <string name="lbl_card_field_quality_index">Quality index: %d</string>
+    <string name="lbl_card_field_carbon_monoxide">Carbon monoxide: %.2f</string>
+    <string name="lbl_card_field_fine_particles">Fine particles: %.2f</string>
+    <string name="lbl_card_field_coarse_particles">Coarse particles: %.2f</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

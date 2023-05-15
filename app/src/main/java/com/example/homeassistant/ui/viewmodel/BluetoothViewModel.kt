@@ -1,4 +1,4 @@
-package com.example.homeassistant.ui.viewmodel.bluetooth
+package com.example.homeassistant.ui.viewmodel
 
 import android.bluetooth.BluetoothSocket
 import android.content.Context
@@ -10,7 +10,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.homeassistant.domain.bluetooth.BluetoothInformation
 import com.example.homeassistant.domain.bluetooth.StatefulBluetoothDevice
-import com.example.homeassistant.repository.bluetooth.BluetoothRepository
+import com.example.homeassistant.repository.BluetoothRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
@@ -94,8 +94,8 @@ class BluetoothViewModel(private val bluetoothRepository: BluetoothRepository) :
                             if (data.size >= MINIMUM_DATA_SIZE) {
                                 _uiState.postValue(
                                     _uiState.value?.copy(
-                                        temperature = data[TEMPERATURE].toFloat(),
-                                        humidity = data[HUMIDITY].toFloat()
+                                        temperature = data[TEMPERATURE].toDouble() + 273.15,
+                                        humidity = data[HUMIDITY].toDouble().toInt()
                                     )
                                 )
                             }
@@ -110,8 +110,8 @@ class BluetoothViewModel(private val bluetoothRepository: BluetoothRepository) :
 
     data class UiState(
         val bluetoothDevices: List<StatefulBluetoothDevice>,
-        val temperature: Float = 0f,
-        val humidity: Float = 0f
+        val temperature: Double = 0.0,
+        val humidity: Int = 0
     )
 
     class BluetoothViewModelFactory(

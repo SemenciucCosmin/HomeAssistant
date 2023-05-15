@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class LocationDto (
    @Json(name = "lon")
-    val longitude: Float? = null,
+    val longitude: Double? = null,
    @Json(name = "lat")
-    val latitude: Float? = null
+    val latitude: Double? = null
 )

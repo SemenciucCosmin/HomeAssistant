@@ -21,13 +21,6 @@ class StartupChecksActivity : AppCompatActivity() {
         }
     }
 
-//    private val bluetoothPermissionLauncher = registerForActivityResult(
-//        ActivityResultContracts.RequestPermission()
-//    ) { isGranted: Boolean ->
-//        Log.d(TAG, "Bluetooth permission granted: $isGranted")
-//        this.finish()
-//        overridePendingTransition(0, 0)    }
-
     private val bluetoothPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->

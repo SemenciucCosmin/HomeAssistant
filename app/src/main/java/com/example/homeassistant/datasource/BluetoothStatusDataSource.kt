@@ -1,4 +1,4 @@
-package com.example.homeassistant.datasource.bluetooth
+package com.example.homeassistant.datasource
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager

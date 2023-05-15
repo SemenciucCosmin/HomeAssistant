@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homeassistant.R
 import com.example.homeassistant.domain.bluetooth.StatefulBluetoothDevice
-import com.example.homeassistant.ui.adapter.model.BluetoothDeviceCallback
+import com.example.homeassistant.ui.adapter.BluetoothDeviceCallback
 
 class BluetoothDeviceViewHolder(
     private val view: View,

@@ -24,8 +24,8 @@ private val weatherRetrofit = Retrofit.Builder()
 interface CurrentWeatherApiService {
     @GET("/data/2.5/weather")
     suspend fun getCurrentWeather(
-        @Query("lat") latitude: Float,
-        @Query("lon") longitude: Float,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
         @Query("appid") appId: String = BuildConfig.API_KEY
     ): Response<CurrentWeatherDto>
 }
@@ -33,8 +33,8 @@ interface CurrentWeatherApiService {
 interface FiveDaysWeatherApiService {
     @GET("/data/2.5/forecast")
     suspend fun getFiveDaysWeather(
-        @Query("lat") latitude: Float,
-        @Query("lon") longitude: Float,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
         @Query("appid") appId: String = BuildConfig.API_KEY
     ): Response<FiveDaysWeatherDto>
 }
@@ -42,8 +42,8 @@ interface FiveDaysWeatherApiService {
 interface AirPollutionApiService {
     @GET("/data/2.5/air_pollution")
     suspend fun getAirPollution(
-        @Query("lat") latitude: Float,
-        @Query("lon") longitude: Float,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
         @Query("appid") appId: String = BuildConfig.API_KEY
     ): Response<AirPollutionDto>
 }

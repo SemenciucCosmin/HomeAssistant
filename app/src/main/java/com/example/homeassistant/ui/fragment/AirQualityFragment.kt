@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.homeassistant.R
 
-class TodayWeatherFragment : Fragment() {
+class AirQualityFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_today_weather, container, false)
+        return inflater.inflate(R.layout.fragment_air_quality, container, false)
     }
 }

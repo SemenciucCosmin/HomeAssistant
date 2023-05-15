@@ -16,5 +16,5 @@ data class ForecastDto(
     @Json(name = "visibility")
     val visibility: Int? = null,
     @Json(name = "pop")
-    val precipitation: Float? = null
+    val precipitation: Double? = null
 )

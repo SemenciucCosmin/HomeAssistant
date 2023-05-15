@@ -12,6 +12,18 @@
         tools:layout="@layout/fragment_today" />
 
     <fragment
+        android:id="@+id/nav_ten_days_weather"
+        android:name="com.example.homeassistant.ui.fragment.TenDaysWeatherFragment"
+        android:label="@string/lbl_ten_days_weather"
+        tools:layout="@layout/fragment_ten_days_weather" />
+
+    <fragment
+        android:id="@+id/nav_air_quality"
+        android:name="com.example.homeassistant.ui.fragment.AirQualityFragment"
+        android:label="@string/lbl_air_quality"
+        tools:layout="@layout/fragment_air_quality" />
+
+    <fragment
         android:id="@+id/nav_sensor_records"
         android:name="com.example.homeassistant.ui.fragment.SensorRecordsFragment"
         android:label="@string/lbl_sensor_records"
@@ -24,16 +36,10 @@
         tools:layout="@layout/fragment_weather_records" />
 
     <fragment
-        android:id="@+id/nav_today_weather"
-        android:name="com.example.homeassistant.ui.fragment.TodayWeatherFragment"
-        android:label="@string/lbl_today_weather"
-        tools:layout="@layout/fragment_today_weather" />
-
-    <fragment
-        android:id="@+id/nav_ten_days_weather"
-        android:name="com.example.homeassistant.ui.fragment.TenDaysWeatherFragment"
-        android:label="@string/lbl_ten_days_weather"
-        tools:layout="@layout/fragment_ten_days_weather" />
+        android:id="@+id/nav_air_quality_records"
+        android:name="com.example.homeassistant.ui.fragment.AirQualityRecordsFragment"
+        android:label="@string/lbl_air_quality_records"
+        tools:layout="@layout/fragment_air_quality_records" />
 
     <fragment
         android:id="@+id/nav_device_management"

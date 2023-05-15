@@ -1,4 +1,4 @@
-package com.example.homeassistant.datasource.bluetooth
+package com.example.homeassistant.datasource
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.homeassistant.datasource.bluetooth.DeviceDataSource.Companion.NAME
+import com.example.homeassistant.datasource.DeviceDataSource.Companion.NAME
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

@@ -1,4 +1,4 @@
-package com.example.homeassistant.ui.viewmodel.settings
+package com.example.homeassistant.ui.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.homeassistant.domain.settings.Location
 import com.example.homeassistant.domain.settings.Settings
-import com.example.homeassistant.repository.settings.SettingsRepository
+import com.example.homeassistant.repository.SettingsRepository
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val settingsRepository: SettingsRepository) : ViewModel() {

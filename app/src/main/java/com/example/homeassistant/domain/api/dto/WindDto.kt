@@ -4,5 +4,5 @@ import com.squareup.moshi.Json
 
 data class WindDto(
    @Json(name = "speed")
-    val speed: Float? = null
+    val speed: Double? = null
 )

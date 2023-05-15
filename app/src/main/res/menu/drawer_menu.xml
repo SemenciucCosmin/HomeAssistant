@@ -10,6 +10,16 @@
             android:icon="@drawable/ic_calendar"/>
 
         <item
+            android:id="@+id/nav_ten_days_weather"
+            android:title="@string/lbl_ten_days_weather"
+            android:icon="@drawable/ic_weather"/>
+
+        <item
+            android:id="@+id/nav_air_quality"
+            android:title="@string/lbl_air_quality"
+            android:icon="@drawable/ic_air_quality"/>
+
+        <item
             android:id="@+id/nav_sensor_records"
             android:title="@string/lbl_sensor_records"
             android:icon="@drawable/ic_statistics"/>
@@ -20,14 +30,9 @@
             android:icon="@drawable/ic_statistics"/>
 
         <item
-            android:id="@+id/nav_today_weather"
-            android:title="@string/lbl_today_weather"
-            android:icon="@drawable/ic_weather"/>
-
-        <item
-            android:id="@+id/nav_ten_days_weather"
-            android:title="@string/lbl_ten_days_weather"
-            android:icon="@drawable/ic_weather"/>
+            android:id="@+id/nav_air_quality_records"
+            android:title="@string/lbl_air_quality_records"
+            android:icon="@drawable/ic_statistics"/>
 
         <item
             android:id="@+id/nav_device_management"

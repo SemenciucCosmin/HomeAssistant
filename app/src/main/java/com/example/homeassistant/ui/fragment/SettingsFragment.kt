@@ -13,12 +13,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.homeassistant.R
-import com.example.homeassistant.datasource.settings.SettingsDataSource
+import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.settings.PressureType
 import com.example.homeassistant.domain.settings.SpeedType
 import com.example.homeassistant.domain.settings.TemperatureType
-import com.example.homeassistant.repository.settings.SettingsRepository
-import com.example.homeassistant.ui.viewmodel.settings.SettingsViewModel
+import com.example.homeassistant.repository.SettingsRepository
+import com.example.homeassistant.ui.viewmodel.SettingsViewModel
 import com.example.homeassistant.utils.CELSIUS_TYPE
 import com.example.homeassistant.utils.FAHRENHEIT_TYPE
 import com.example.homeassistant.utils.HPA_TYPE
