@@ -5,15 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.homeassistant.R
 import com.example.homeassistant.domain.api.AirPollution
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.City
 import com.example.homeassistant.domain.api.CurrentWeather
 import com.example.homeassistant.domain.api.FiveDaysWeather
 import com.example.homeassistant.domain.api.Forecast
+import com.example.homeassistant.domain.api.dto.AirPollutionDto
 import com.example.homeassistant.domain.api.dto.CityDto
+import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.api.dto.ForecastDto
 import com.example.homeassistant.domain.settings.Location
+import com.example.homeassistant.domain.settings.PressureType
+import com.example.homeassistant.domain.settings.Settings
+import com.example.homeassistant.domain.settings.SpeedType
+import com.example.homeassistant.domain.settings.TemperatureType
 import com.example.homeassistant.repository.WeatherApiRepository
 import com.example.homeassistant.utils.API_ERROR_MESSAGE
 import kotlinx.coroutines.launch
@@ -25,31 +32,16 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
     val uiState: LiveData<UiState>
         get() = _uiState
 
-    fun getCurrentWeather(latitude: Double, longitude: Double) {
+    fun getCurrentWeather(settings: Settings) {
         viewModelScope.launch {
-            when (val callResult = weatherApiRepository.getCurrentWeather(latitude, longitude)) {
+            val callResult = weatherApiRepository.getCurrentWeather(
+                settings.location.latitude,
+                settings.location.longitude
+            )
+
+            when (callResult) {
                 is CallResult.Success -> {
-                    val currentWeather = CurrentWeather(
-                        location = Location(
-                            latitude = callResult.data.locationDto?.latitude ?: 0.0,
-                            longitude = callResult.data.locationDto?.longitude ?: 0.0
-                        ),
-                        mainWeather = callResult.data.weatherDto?.first()?.main ?: "",
-                        description = callResult.data.weatherDto?.first()?.description ?: "",
-                        temperature = callResult.data.measurementsDto?.temperature ?: 0.0,
-                        feelsLike = callResult.data.measurementsDto?.feelsLike ?: 0.0,
-                        maxTemperature = callResult.data.measurementsDto?.maxTemperature ?: 0.0,
-                        minTemperature = callResult.data.measurementsDto?.minTemperature ?: 0.0,
-                        pressure = callResult.data.measurementsDto?.pressure ?: 0,
-                        humidity = callResult.data.measurementsDto?.humidity ?: 0,
-                        visibility = callResult.data.visibility ?: 0,
-                        windSpeed = callResult.data.windDto?.speed ?: 0.0,
-                        cloudiness = callResult.data.cloudsDto?.cloudiness ?: 0,
-                        dateTime = callResult.data.dateTime ?: 0L,
-                        sunriseTime = callResult.data.weatherInfoDto?.sunriseTime ?: 0L,
-                        sunsetTime = callResult.data.weatherInfoDto?.sunsetTime ?: 0L,
-                        cityName = callResult.data.cityName ?: ""
-                    )
+                    val currentWeather = getCurrentWeatherFromDto(callResult.data, settings)
                     _uiState.value = _uiState.value?.copy(currentWeather = currentWeather)
                 }
 
@@ -60,12 +52,18 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         }
     }
 
-    fun getFiveDaysWeather(latitude: Double, longitude: Double) {
+    fun getFiveDaysWeather(settings: Settings) {
         viewModelScope.launch {
-            when (val callResult = weatherApiRepository.getFiveDaysWeather(latitude, longitude)) {
+            val callResult = weatherApiRepository.getFiveDaysWeather(
+                settings.location.latitude,
+                settings.location.longitude
+            )
+            when (callResult) {
                 is CallResult.Success -> {
-                    val forecasts = getForecastsFromDto(callResult.data.forecasts)
-                    val city = getCityFromDto(callResult.data.cityDto)
+                    val forecasts = callResult.data.forecasts.mapNotNull { forecastDto ->
+                        getForecastFromDto(forecastDto, settings)
+                    }
+                    val city = getCityFromDto(callResult.data.cityDto) ?: return@launch
                     val fiveDaysWeather = FiveDaysWeather(forecasts = forecasts, city = city)
                     _uiState.value = _uiState.value?.copy(fiveDaysWeather = fiveDaysWeather)
                 }
@@ -77,27 +75,16 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         }
     }
 
-    fun getAirPollution(latitude: Double, longitude: Double) {
+    fun getAirPollution(settings: Settings) {
         viewModelScope.launch {
-            when (val callResult = weatherApiRepository.getAirPollution(latitude, longitude)) {
+            val callResult = weatherApiRepository.getAirPollution(
+                settings.location.latitude,
+                settings.location.longitude
+            )
+
+            when (callResult) {
                 is CallResult.Success -> {
-                    val details = callResult.data.detailsDto?.first()
-                    val airPollution = AirPollution(
-                        location = Location(
-                            latitude = callResult.data.locationDto?.latitude ?: 0.0,
-                            longitude = callResult.data.locationDto?.longitude ?: 0.0
-                        ),
-                        dateTime = details?.dateTime ?: 0L,
-                        airQualityIndex = details?.airQualityDto?.index ?: 0,
-                        carbonMonoxide = details?.componentsDto?.carbonMonoxide ?: 0.0,
-                        nitrogenMonoxide = details?.componentsDto?.nitrogenMonoxide ?: 0.0,
-                        nitrogenDioxide = details?.componentsDto?.nitrogenDioxide ?: 0.0,
-                        ozone = details?.componentsDto?.ozone ?: 0.0,
-                        sulphurDioxide = details?.componentsDto?.sulphurDioxide ?: 0.0,
-                        fineParticles = details?.componentsDto?.fineParticles ?: 0.0,
-                        coarseParticles = details?.componentsDto?.coarseParticles ?: 0.0,
-                        ammonia = details?.componentsDto?.ammonia ?: 0.0
-                    )
+                    val airPollution = getAirPollutionFromDto(callResult.data)
                     _uiState.value = _uiState.value?.copy(airPollution = airPollution)
                 }
 
@@ -108,35 +95,159 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         }
     }
 
-    private fun getForecastsFromDto(forecasts: List<ForecastDto>): List<Forecast> {
-        return forecasts.map { forecastDto ->
-            Forecast(
-                dateTime = forecastDto.dateTime ?: 0L,
-                temperature = forecastDto.measurementsDto?.temperature ?: 0.0,
-                feelsLike = forecastDto.measurementsDto?.feelsLike ?: 0.0,
-                minTemperature = forecastDto.measurementsDto?.minTemperature ?: 0.0,
-                maxTemperature = forecastDto.measurementsDto?.maxTemperature ?: 0.0,
-                pressure = forecastDto.measurementsDto?.pressure ?: 0,
-                humidity = forecastDto.measurementsDto?.humidity ?: 0,
-                mainWeather = forecastDto.weatherDto?.first()?.main ?: "",
-                description = forecastDto.weatherDto?.first()?.description ?: "",
-                cloudiness = forecastDto.cloudsDto?.cloudiness ?: 0,
-                windSpeed = forecastDto.windDto?.speed ?: 0.0,
-                visibility = forecastDto.visibility ?: 0,
-                precipitation = forecastDto.precipitation ?: 0.0
-            )
-        }
+    private fun getCurrentWeatherFromDto(
+        currentWeatherDto: CurrentWeatherDto,
+        settings: Settings
+    ): CurrentWeather? {
+        val latitude = currentWeatherDto.locationDto?.latitude ?: return null
+        val longitude = currentWeatherDto.locationDto.longitude ?: return null
+        val mainWeather = currentWeatherDto.weatherDto?.first()?.main ?: return null
+        val description = currentWeatherDto.weatherDto.first().description ?: return null
+        val rawTemperature = currentWeatherDto.measurementsDto?.temperature ?: return null
+        val rawFeelsLike = currentWeatherDto.measurementsDto.feelsLike ?: return null
+        val rawMinTemperature = currentWeatherDto.measurementsDto.minTemperature ?: return null
+        val rawMaxTemperature = currentWeatherDto.measurementsDto.maxTemperature ?: return null
+        val rawPressure = currentWeatherDto.measurementsDto.pressure ?: return null
+        val humidity = currentWeatherDto.measurementsDto.humidity ?: return null
+        val visibility = currentWeatherDto.visibility ?: return null
+        val rawWindSpeed = currentWeatherDto.windDto?.speed ?: return null
+        val cloudiness = currentWeatherDto.cloudsDto?.cloudiness ?: return null
+        val dateTime = currentWeatherDto.dateTime ?: return null
+        val sunriseTime = currentWeatherDto.weatherInfoDto?.sunriseTime ?: return null
+        val sunsetTime = currentWeatherDto.weatherInfoDto.sunsetTime ?: return null
+        val cityName = currentWeatherDto.cityName ?: return null
+
+        val temperatureType = TemperatureType.getByItemType(settings.temperatureUnit)
+        val pressureType = PressureType.getByItemType(settings.pressureUnit)
+        val speedType = SpeedType.getByItemType(settings.speedUnit)
+
+        val temperature = TemperatureType.getTempByType(rawTemperature, temperatureType)
+        val feelsLike = TemperatureType.getTempByType(rawFeelsLike, temperatureType)
+        val minTemperature = TemperatureType.getTempByType(rawMinTemperature, temperatureType)
+        val maxTemperature = TemperatureType.getTempByType(rawMaxTemperature, temperatureType)
+        val pressure = PressureType.getPressureByType(rawPressure, pressureType)
+        val windSpeed = SpeedType.getSpeedByType(rawWindSpeed, speedType)
+
+        return CurrentWeather(
+            location = Location(latitude, longitude),
+            mainWeather = mainWeather,
+            description = description,
+            temperature = temperature,
+            feelsLike = feelsLike,
+            maxTemperature = maxTemperature,
+            minTemperature = minTemperature,
+            pressure = pressure,
+            humidity = humidity,
+            visibility = visibility,
+            windSpeed = windSpeed,
+            cloudiness = cloudiness,
+            dateTime = dateTime,
+            sunriseTime = sunriseTime,
+            sunsetTime = sunsetTime,
+            cityName = cityName
+        )
     }
 
-    private fun getCityFromDto(cityDto: CityDto?): City {
+    private fun getForecastFromDto(forecastDto: ForecastDto, settings: Settings): Forecast? {
+        val dateTime = forecastDto.dateTime ?: return null
+        val rawTemperature = forecastDto.measurementsDto?.temperature ?: return null
+        val rawFeelsLike = forecastDto.measurementsDto.feelsLike ?: return null
+        val rawMinTemperature = forecastDto.measurementsDto.minTemperature ?: return null
+        val rawMaxTemperature = forecastDto.measurementsDto.maxTemperature ?: return null
+        val rawPressure = forecastDto.measurementsDto.pressure ?: return null
+        val humidity = forecastDto.measurementsDto.humidity ?: return null
+        val mainWeather = forecastDto.weatherDto?.first()?.main ?: return null
+        val description = forecastDto.weatherDto.first().description ?: return null
+        val cloudiness = forecastDto.cloudsDto?.cloudiness ?: return null
+        val rawWindSpeed = forecastDto.windDto?.speed ?: return null
+        val visibility = forecastDto.visibility ?: return null
+        val precipitation = forecastDto.precipitation ?: return null
+
+        val temperatureType = TemperatureType.getByItemType(settings.temperatureUnit)
+        val pressureType = PressureType.getByItemType(settings.pressureUnit)
+        val speedType = SpeedType.getByItemType(settings.speedUnit)
+
+        val temperature = TemperatureType.getTempByType(rawTemperature, temperatureType)
+        val feelsLike = TemperatureType.getTempByType(rawFeelsLike, temperatureType)
+        val minTemperature = TemperatureType.getTempByType(rawMinTemperature, temperatureType)
+        val maxTemperature = TemperatureType.getTempByType(rawMaxTemperature, temperatureType)
+        val pressure = PressureType.getPressureByType(rawPressure, pressureType)
+        val windSpeed = SpeedType.getSpeedByType(rawWindSpeed, speedType)
+
+        return Forecast(
+            dateTime = dateTime,
+            temperature = temperature,
+            feelsLike = feelsLike,
+            minTemperature = minTemperature,
+            maxTemperature = maxTemperature,
+            pressure = pressure,
+            humidity = humidity,
+            mainWeather = mainWeather,
+            description = description,
+            cloudiness = cloudiness,
+            windSpeed = windSpeed,
+            visibility = visibility,
+            precipitation = precipitation
+        )
+    }
+
+    private fun getCityFromDto(cityDto: CityDto?): City? {
         return City(
-            name = cityDto?.name ?: "",
+            name = cityDto?.name ?: return null,
             location = Location(
-                latitude = cityDto?.locationDto?.latitude ?: 0.0,
-                longitude = cityDto?.locationDto?.longitude ?: 0.0
+                latitude = cityDto.locationDto?.latitude ?: return null,
+                longitude = cityDto.locationDto.longitude ?: return null
             ),
-            sunriseTime = cityDto?.sunriseTime ?: 0L,
-            sunsetTime = cityDto?.sunsetTime ?: 0L,
+            sunriseTime = cityDto.sunriseTime ?: return null,
+            sunsetTime = cityDto.sunsetTime ?: return null,
+        )
+    }
+
+    private fun getAirPollutionFromDto(airPollutionDto: AirPollutionDto): AirPollution? {
+        val latitude = airPollutionDto.locationDto?.latitude ?: return null
+        val longitude = airPollutionDto.locationDto.longitude ?: return null
+        val dateTime = airPollutionDto.detailsDto?.first()?.dateTime ?: return null
+        val details = airPollutionDto.detailsDto.first()
+        val airQualityIndex = details.airQualityDto?.index ?: return null
+        val carbonMonoxide = details.componentsDto?.carbonMonoxide ?: return null
+        val nitrogenMonoxide = details.componentsDto.nitrogenMonoxide ?: return null
+        val nitrogenDioxide = details.componentsDto.nitrogenDioxide ?: return null
+        val ozone = details.componentsDto.ozone ?: return null
+        val sulphurDioxide = details.componentsDto.sulphurDioxide ?: return null
+        val fineParticles = details.componentsDto.fineParticles ?: return null
+        val coarseParticles = details.componentsDto.coarseParticles ?: return null
+        val ammonia = details.componentsDto.ammonia ?: return null
+
+        return AirPollution(
+            location = Location(latitude, longitude),
+            dateTime = dateTime,
+            airQualityIndex = airQualityIndex,
+            carbonMonoxide = carbonMonoxide,
+            nitrogenMonoxide = nitrogenMonoxide,
+            nitrogenDioxide = nitrogenDioxide,
+            ozone = ozone,
+            sulphurDioxide = sulphurDioxide,
+            fineParticles = fineParticles,
+            coarseParticles = coarseParticles,
+            ammonia = ammonia
+        )
+    }
+
+    fun setStringIds(settings: Settings) {
+        val temperatureType = TemperatureType.getByItemType(settings.temperatureUnit)
+        val pressureType = PressureType.getByItemType(settings.pressureUnit)
+        val speedType = SpeedType.getByItemType(settings.speedUnit)
+        val hourFormatStringId = if (settings.amPmHourFormat) {
+            R.string.lbl_hour_format_am_pm
+        } else {
+            R.string.lbl_hour_format
+        }
+
+        _uiState.value = _uiState.value?.copy(
+            temperatureValueStringId = temperatureType.valueStringId,
+            pressureValueStringId = pressureType.valueStringId,
+            speedValueStringId = speedType.valueStringId,
+            hourFormatStringId = hourFormatStringId
         )
     }
 
@@ -146,7 +257,11 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         val fiveDaysWeather: FiveDaysWeather? = null,
         val fiveDaysWeatherError: String? = null,
         val airPollution: AirPollution? = null,
-        val airPollutionError: String? = null
+        val airPollutionError: String? = null,
+        val temperatureValueStringId: Int = R.string.lbl_unit_value_celsius,
+        val pressureValueStringId: Int = R.string.lbl_unit_value_hpa,
+        val speedValueStringId: Int = R.string.lbl_unit_value_meters_per_second,
+        val hourFormatStringId: Int = R.string.lbl_hour_format_am_pm
     )
 
     class WeatherApiViewModelFactory(

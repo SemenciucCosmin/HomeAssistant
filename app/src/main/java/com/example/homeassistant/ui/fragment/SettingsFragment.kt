@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.homeassistant.R
+import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.settings.PressureType
 import com.example.homeassistant.domain.settings.SpeedType
@@ -45,9 +46,13 @@ class SettingsFragment : Fragment() {
     private lateinit var pressureOption: TextView
     private lateinit var notificationsSwitch: SwitchCompat
 
-    private lateinit var settingsRepository: SettingsRepository
     private val settingsViewModel: SettingsViewModel by viewModels {
-        SettingsViewModel.SettingsViewModelFactory(settingsRepository)
+        SettingsViewModel.SettingsViewModelFactory(
+            SettingsRepository(
+                SettingsDataSource(requireContext()),
+                PhonePermissionDataSource(requireContext())
+            )
+        )
     }
 
     override fun onCreateView(
@@ -74,9 +79,6 @@ class SettingsFragment : Fragment() {
 
         initializeViews()
         setClickListeners()
-
-        val settingsDataSource = SettingsDataSource(requireContext())
-        settingsRepository = SettingsRepository(settingsDataSource)
 
         settingsViewModel.getSettings().observe(viewLifecycleOwner) { settings ->
             val temperatureType = TemperatureType.getByItemType(settings.temperatureUnit)

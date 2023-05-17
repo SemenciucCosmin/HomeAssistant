@@ -4,7 +4,6 @@ import com.example.homeassistant.R
 import com.example.homeassistant.utils.CELSIUS_TYPE
 import com.example.homeassistant.utils.FAHRENHEIT_TYPE
 import com.example.homeassistant.utils.KELVIN_TYPE
-import kotlin.math.roundToInt
 
 enum class TemperatureType(val itemType: String, val stringId: Int, val valueStringId: Int) {
     CELSIUS(CELSIUS_TYPE, R.string.lbl_unit_celsius, R.string.lbl_unit_value_celsius),
@@ -15,7 +14,7 @@ enum class TemperatureType(val itemType: String, val stringId: Int, val valueStr
         fun getByItemType(itemType: String) =
             values().firstOrNull { it.itemType == itemType } ?: CELSIUS
 
-        fun getTemperatureByType(temperature: Double, itemType: TemperatureType): Double {
+        fun getTempByType(temperature: Double, itemType: TemperatureType): Double {
             return when (itemType) {
                 CELSIUS -> {
                     kelvinToCelsius(temperature)

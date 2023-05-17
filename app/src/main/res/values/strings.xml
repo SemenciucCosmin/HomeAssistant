@@ -65,6 +65,9 @@
     <string name="lbl_unit_value_mmHg">%d mmHg</string>
     <string name="lbl_unit_value_inHg">%d inHg</string>
 
+    <string name="lbl_hour_format_am_pm">HH:mm a</string>
+    <string name="lbl_hour_format">HH:mm</string>
+
     <string name="lbl_card_title_sensor_data">Sensor Data</string>
     <string name="lbl_card_field_sensor_temperature">Sensor temperature: %s</string>
     <string name="lbl_card_field_sensor_humidity">Sensor humidity: %d%%</string>

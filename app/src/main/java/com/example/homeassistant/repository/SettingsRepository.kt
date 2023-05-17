@@ -1,12 +1,17 @@
 package com.example.homeassistant.repository
 
+import android.Manifest
 import android.content.Context
+import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.settings.Location
 import com.example.homeassistant.domain.settings.Settings
 import kotlinx.coroutines.flow.Flow
 
-class SettingsRepository(private val settingsDataSource: SettingsDataSource) {
+class SettingsRepository(
+    private val settingsDataSource: SettingsDataSource,
+    private val permissionDataSource: PhonePermissionDataSource
+) {
     fun getSettings(): Flow<Settings> = settingsDataSource.settingsFlow
 
     suspend fun saveAmPamHourFormatToPreferenceStore(amPmHourFormat: Boolean, context: Context) {
@@ -31,5 +36,13 @@ class SettingsRepository(private val settingsDataSource: SettingsDataSource) {
 
     suspend fun saveLocationToPreferenceStore(location: Location, context: Context) {
         settingsDataSource.saveLocationToPreferenceStore(location, context)
+    }
+
+    private suspend fun isLocationPermissionGranted(): Boolean {
+        val coarseLocationPermission =
+            permissionDataSource.isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
+        val fineLocationPermission =
+            permissionDataSource.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+        return coarseLocationPermission || fineLocationPermission
     }
 }
