@@ -91,12 +91,90 @@
     <string name="lbl_card_field_sunset">Sunset: %s</string>
 
     <string name="lbl_card_title_air_quality">Air Quality</string>
-    <string name="lbl_card_field_quality_index">Quality index: %d</string>
-    <string name="lbl_card_field_carbon_monoxide">Carbon monoxide: %.2f</string>
-    <string name="lbl_card_field_fine_particles">Fine particles: %.2f</string>
-    <string name="lbl_card_field_coarse_particles">Coarse particles: %.2f</string>
+    <string name="lbl_card_field_quality_index">Quality index: %d (%s)</string>
+    <string name="lbl_card_field_carbon_monoxide">Carbon monoxide: %.2f (%s)</string>
+    <string name="lbl_card_field_fine_particles">Fine particles: %.2f (%s)</string>
+    <string name="lbl_card_field_coarse_particles">Coarse particles: %.2f (%s)</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_quality_good">Good</string>
+    <string name="lbl_quality_fair">Fair</string>
+    <string name="lbl_quality_moderate">Moderate</string>
+    <string name="lbl_quality_poor">Poor</string>
+    <string name="lbl_quality_very_poor">Very Poor</string>
+
+    <string name="lbl_formula_carbon_monoxide">CO</string>
+    <string name="lbl_formula_nitrogen_monoxide">NO</string>
+    <string name="lbl_formula_nitrogen_dioxide">NO2</string>
+    <string name="lbl_formula_ozone">O3</string>
+    <string name="lbl_formula_sulphur">SO2</string>
+    <string name="lbl_formula_ammonia">NH3</string>
+    <string name="lbl_formula_fine_particles">PM2.5</string>
+    <string name="lbl_formula_coarse_particles">PM10</string>
+
+    <string name="lbl_carbon_monoxide">Carbon Monoxide (CO)</string>
+    <string name="lbl_nitrogen_monoxide">Nitrogen Monoxide (NO)</string>
+    <string name="lbl_nitrogen_dioxide">Nitrogen Dioxide (NO2)</string>
+    <string name="lbl_ozone">Ozone (O3)</string>
+    <string name="lbl_sulphur">Sulphur Dioxide (SO2)</string>
+    <string name="lbl_ammonia">Ammonia (NH3)</string>
+    <string name="lbl_fine_particles">Fine Particles (PM2.5)</string>
+    <string name="lbl_coarse_particles">Coarse Particles (PM10)</string>
+
+    <string name="lbl_air_quality_good_index">Good: 1</string>
+    <string name="lbl_air_quality_fair_index">Fair: 2</string>
+    <string name="lbl_air_quality_moderate_index">Moderate: 3</string>
+    <string name="lbl_air_quality_poor_index">Poor: 4</string>
+    <string name="lbl_air_quality_very_poor_index">Very poor: 5</string>
+
+    <string name="lbl_carbon_monoxide_good_range">Good: 0–4400</string>
+    <string name="lbl_carbon_monoxide_fair_range">Fair: 4400–9400</string>
+    <string name="lbl_carbon_monoxide_moderate_range">Moderate: 9400–12400</string>
+    <string name="lbl_carbon_monoxide_poor_range">Poor: 12400–15400</string>
+    <string name="lbl_carbon_monoxide_very_poor_range">Very poor: >15400</string>
+
+    <string name="lbl_nitrogen_monoxide_good_range">Good: 0–25</string>
+    <string name="lbl_nitrogen_monoxide_fair_range">Fair: 25–50</string>
+    <string name="lbl_nitrogen_monoxide_moderate_range">Moderate: 50–75</string>
+    <string name="lbl_nitrogen_monoxide_poor_range">Poor: 75–100</string>
+    <string name="lbl_nitrogen_monoxide_very_poor_range">Very poor: >100</string>
+
+    <string name="lbl_nitrogen_dioxide_good_range">Good: 0–40</string>
+    <string name="lbl_nitrogen_dioxide_fair_range">Fair: 40–70</string>
+    <string name="lbl_nitrogen_dioxide_moderate_range">Moderate: 70–150</string>
+    <string name="lbl_nitrogen_dioxide_poor_range">Poor: 150–200</string>
+    <string name="lbl_nitrogen_dioxide_very_poor_range">Very poor: >200</string>
+
+    <string name="lbl_ozone_good_range">Good: 0–60</string>
+    <string name="lbl_ozone_fair_range">Fair: 60–100</string>
+    <string name="lbl_ozone_moderate_range">Moderate: 100–140</string>
+    <string name="lbl_ozone_poor_range">Poor: 140–180</string>
+    <string name="lbl_ozone_very_poor_range">Very poor: >180</string>
+
+    <string name="lbl_sulphur_dioxide_good_range">Good: 0–20</string>
+    <string name="lbl_sulphur_dioxide_fair_range">Fair: 20–80</string>
+    <string name="lbl_sulphur_dioxide_moderate_range">Moderate: 80–250</string>
+    <string name="lbl_sulphur_dioxide_poor_range">Poor: 250–350</string>
+    <string name="lbl_sulphur_dioxide_very_poor_range">Very poor: >350</string>
+
+    <string name="lbl_ammonia_good_range">Good: 0–20</string>
+    <string name="lbl_ammonia_fair_range">Fair: 20–50</string>
+    <string name="lbl_ammonia_moderate_range">Moderate: 50–100</string>
+    <string name="lbl_ammonia_poor_range">Poor: 100–200</string>
+    <string name="lbl_ammonia_very_poor_range">Very poor: >200</string>
+
+    <string name="lbl_fine_particles_good_range">Good: 0–10</string>
+    <string name="lbl_fine_particles_fair_range">Fair: 10–25</string>
+    <string name="lbl_fine_particles_moderate_range">Moderate: 25–50</string>
+    <string name="lbl_fine_particles_poor_range">Poor: 50–75</string>
+    <string name="lbl_fine_particles_very_poor_range">Very poor: >75</string>
+
+    <string name="lbl_coarse_particles_good_range">Good: 0–20</string>
+    <string name="lbl_coarse_particles_fair_range">Fair: 20–50</string>
+    <string name="lbl_coarse_particles_moderate_range">Moderate: 50–100</string>
+    <string name="lbl_coarse_particles_poor_range">Poor: 100–200</string>
+    <string name="lbl_coarse_particles_very_poor_range">Very poor: >200</string>
+
+    <string name="lbl_quality_card_current_index">Current value: %d (%s)</string>
+    <string name="lbl_quality_card_current_value">Current value: %.2f (%s)</string>
 
 </resources>

@@ -306,13 +306,25 @@ class TodayFragment : Fragment() {
     }
 
     private fun setAirQualityCard(airPollution: AirPollution) {
-        qualityIndexView.text =
-            getString(R.string.lbl_card_field_quality_index, airPollution.airQualityIndex)
-        carbonMonoxideView.text =
-            getString(R.string.lbl_card_field_carbon_monoxide, airPollution.carbonMonoxide)
-        fineParticlesView.text =
-            getString(R.string.lbl_card_field_fine_particles, airPollution.fineParticles)
-        coarseParticlesView.text =
-            getString(R.string.lbl_card_field_coarse_particles, airPollution.coarseParticles)
+        qualityIndexView.text = getString(
+            R.string.lbl_card_field_quality_index,
+            airPollution.airQualityIndex,
+            getString(airPollution.airQualityIndexEnum.qualityStringId)
+        )
+        carbonMonoxideView.text = getString(
+            R.string.lbl_card_field_carbon_monoxide,
+            airPollution.carbonMonoxide,
+            getString(airPollution.carbonMonoxideEnum.qualityStringId)
+        )
+        fineParticlesView.text = getString(
+            R.string.lbl_card_field_fine_particles,
+            airPollution.fineParticles,
+            getString(airPollution.fineParticlesEnum.qualityStringId)
+        )
+        coarseParticlesView.text = getString(
+            R.string.lbl_card_field_coarse_particles,
+            airPollution.coarseParticles,
+            getString(airPollution.coarseParticlesEnum.qualityStringId)
+        )
     }
 }

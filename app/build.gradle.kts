@@ -46,7 +46,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.10.1")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
 
@@ -77,4 +77,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
 }

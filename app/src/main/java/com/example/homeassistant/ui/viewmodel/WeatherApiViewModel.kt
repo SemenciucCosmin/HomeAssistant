@@ -6,6 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.homeassistant.R
+import com.example.homeassistant.domain.AirQualityEnum
+import com.example.homeassistant.domain.AmmoniaEnum
+import com.example.homeassistant.domain.CarbonMonoxideEnum
+import com.example.homeassistant.domain.CoarseParticlesEnum
+import com.example.homeassistant.domain.FineParticlesEnum
+import com.example.homeassistant.domain.NitrogenDioxideEnum
+import com.example.homeassistant.domain.NitrogenMonoxideEnum
+import com.example.homeassistant.domain.OzoneEnum
+import com.example.homeassistant.domain.SulphurDioxideEnum
 import com.example.homeassistant.domain.api.AirPollution
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.City
@@ -227,9 +236,18 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
             nitrogenDioxide = nitrogenDioxide,
             ozone = ozone,
             sulphurDioxide = sulphurDioxide,
+            ammonia = ammonia,
             fineParticles = fineParticles,
             coarseParticles = coarseParticles,
-            ammonia = ammonia
+            airQualityIndexEnum = AirQualityEnum.getQualityByValue(airQualityIndex),
+            carbonMonoxideEnum = CarbonMonoxideEnum.getQualityByValue(carbonMonoxide),
+            nitrogenMonoxideEnum = NitrogenMonoxideEnum.getQualityByValue(nitrogenMonoxide),
+            nitrogenDioxideEnum = NitrogenDioxideEnum.getQualityByValue(nitrogenDioxide),
+            ozoneEnum = OzoneEnum.getQualityByValue(ozone),
+            sulphurDioxideEnum = SulphurDioxideEnum.getQualityByValue(sulphurDioxide),
+            ammoniaEnum = AmmoniaEnum.getQualityByValue(ammonia),
+            fineParticlesEnum = FineParticlesEnum.getQualityByValue(fineParticles),
+            coarseParticlesEnum = CoarseParticlesEnum.getQualityByValue(coarseParticles)
         )
     }
 
