@@ -10,7 +10,9 @@ import androidx.work.WorkerParameters
 import com.example.homeassistant.database.HomeAssistantDatabase
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.dto.AirQualityDto
+import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.database.AirQualityEntity
+import com.example.homeassistant.domain.database.CurrentWeatherEntity
 import com.example.homeassistant.repository.DatabaseRepository
 import com.example.homeassistant.repository.WeatherApiRepository
 import kotlinx.coroutines.Dispatchers
@@ -35,10 +37,17 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
             }
 
             if (latitude != 0.0 && longitude != 0.0) {
+                val currentWeatherCallResult = weatherApiRepository.getCurrentWeather(
+                    latitude = latitude,
+                    longitude = longitude
+                )
+
                 val airQualityCallResult = weatherApiRepository.getAirQuality(
                     latitude = latitude,
                     longitude = longitude
                 )
+
+                addCurrentWeatherRecord(currentWeatherCallResult)
                 addAirQualityRecord(airQualityCallResult)
             }
         }
@@ -55,15 +64,59 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private suspend fun addAirQualityRecord(airQualityCallResult: CallResult<AirQualityDto>) {
-        if (airQualityCallResult is CallResult.Success) {
-            val airQualityDto = airQualityCallResult.data
-            val airQualityEntity = fromDtoToEntity(airQualityDto)
-            databaseRepository.insert(airQualityEntity)
+    private suspend fun addCurrentWeatherRecord(currentWeatherCallResult: CallResult<CurrentWeatherDto>) {
+        if (currentWeatherCallResult is CallResult.Success) {
+            val currentWeatherDto = currentWeatherCallResult.data
+            val currentWeatherEntity = fromCurrentWeatherDtoToEntity(currentWeatherDto)
+            databaseRepository.insertCurrentWeatherEntity(currentWeatherEntity)
         }
     }
 
-    private fun fromDtoToEntity(airQualityDto: AirQualityDto): AirQualityEntity {
+    private suspend fun addAirQualityRecord(airQualityCallResult: CallResult<AirQualityDto>) {
+        if (airQualityCallResult is CallResult.Success) {
+            val airQualityDto = airQualityCallResult.data
+            val airQualityEntity = fromAirQualityDtoToEntity(airQualityDto)
+            databaseRepository.insertAirQualityEntity(airQualityEntity)
+        }
+    }
+
+    private fun fromCurrentWeatherDtoToEntity(currentWeatherDto: CurrentWeatherDto): CurrentWeatherEntity {
+        val mainWeather = currentWeatherDto.weatherDto?.first()?.main ?: ""
+        val description = currentWeatherDto.weatherDto?.first()?.description ?: ""
+        val temperature = currentWeatherDto.measurementsDto?.temperature ?: 0.0
+        val feelsLike = currentWeatherDto.measurementsDto?.feelsLike ?: 0.0
+        val minTemperature = currentWeatherDto.measurementsDto?.minTemperature ?: 0.0
+        val maxTemperature = currentWeatherDto.measurementsDto?.maxTemperature ?: 0.0
+        val pressure = currentWeatherDto.measurementsDto?.pressure ?: 0
+        val humidity = currentWeatherDto.measurementsDto?.humidity ?: 0
+        val visibility = currentWeatherDto.visibility ?: 0
+        val windSpeed = currentWeatherDto.windDto?.speed ?: 0.0
+        val cloudiness = currentWeatherDto.cloudsDto?.cloudiness ?: 0
+        val dateTime = currentWeatherDto.dateTime ?: System.currentTimeMillis()
+        val sunriseTime = currentWeatherDto.weatherInfoDto?.sunriseTime ?: 0L
+        val sunsetTime = currentWeatherDto.weatherInfoDto?.sunsetTime ?: 0L
+        val cityName = currentWeatherDto.cityName ?: ""
+
+        return CurrentWeatherEntity(
+            mainWeather = mainWeather,
+            description = description,
+            temperature = temperature,
+            feelsLike = feelsLike,
+            maxTemperature = maxTemperature,
+            minTemperature = minTemperature,
+            pressure = pressure,
+            humidity = humidity,
+            visibility = visibility,
+            windSpeed = windSpeed,
+            cloudiness = cloudiness,
+            dateTime = dateTime,
+            sunriseTime = sunriseTime,
+            sunsetTime = sunsetTime,
+            cityName = cityName
+        )
+    }
+
+    private fun fromAirQualityDtoToEntity(airQualityDto: AirQualityDto): AirQualityEntity {
         val details = airQualityDto.detailsDto?.first()
         val dateTime = details?.dateTime ?: System.currentTimeMillis()
         val airQualityIndex = details?.airQualityIndexDto?.index ?: 0

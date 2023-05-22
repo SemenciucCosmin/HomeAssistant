@@ -1,9 +1,6 @@
 package com.example.homeassistant.domain
 
-import com.example.homeassistant.domain.settings.Location
-
 data class CurrentWeather(
-    val location: Location,
     val mainWeather: String,
     val description: String,
     val temperature: Double,

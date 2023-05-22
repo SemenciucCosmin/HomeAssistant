@@ -5,9 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.homeassistant.domain.database.AirQualityEntity
+import com.example.homeassistant.domain.database.CurrentWeatherEntity
 
-@Database(entities = [AirQualityEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [CurrentWeatherEntity::class, AirQualityEntity::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class HomeAssistantDatabase : RoomDatabase() {
+    abstract fun currentWeatherDao(): CurrentWeatherDao
     abstract fun airQualityDao(): AirQualityDao
 
     companion object {

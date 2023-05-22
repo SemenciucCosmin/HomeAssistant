@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                     )
                         .addTag(ADD_RECORDS_WORKER_TAG)
                         .setInputData(data.build())
-                        .setInitialDelay(delay, TimeUnit.MINUTES)
+//                        .setInitialDelay(delay, TimeUnit.MINUTES)
                         .build()
 
                     WorkManager.getInstance(this).enqueueUniquePeriodicWork(

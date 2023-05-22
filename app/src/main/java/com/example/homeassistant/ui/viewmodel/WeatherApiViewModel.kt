@@ -22,7 +22,6 @@ import com.example.homeassistant.domain.CurrentWeather
 import com.example.homeassistant.domain.FiveDaysWeather
 import com.example.homeassistant.domain.Forecast
 import com.example.homeassistant.domain.api.dto.AirQualityDto
-import com.example.homeassistant.domain.api.dto.AirQualityIndexDto
 import com.example.homeassistant.domain.api.dto.CityDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.api.dto.ForecastDto
@@ -109,8 +108,6 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         currentWeatherDto: CurrentWeatherDto,
         settings: Settings
     ): CurrentWeather? {
-        val latitude = currentWeatherDto.locationDto?.latitude ?: return null
-        val longitude = currentWeatherDto.locationDto.longitude ?: return null
         val mainWeather = currentWeatherDto.weatherDto?.first()?.main ?: return null
         val description = currentWeatherDto.weatherDto.first().description ?: return null
         val rawTemperature = currentWeatherDto.measurementsDto?.temperature ?: return null
@@ -139,7 +136,6 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         val windSpeed = SpeedType.getSpeedByType(rawWindSpeed, speedType)
 
         return CurrentWeather(
-            location = Location(latitude, longitude),
             mainWeather = mainWeather,
             description = description,
             temperature = temperature,

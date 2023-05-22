@@ -74,7 +74,9 @@
 
     <string name="lbl_card_title_current_weather">Current Weather</string>
     <string name="lbl_card_field_current_temperature_title">Current temperature</string>
+    <string name="lbl_card_field_temperature">Temperature: %s</string>
     <string name="lbl_card_field_feels_like_title">Feels like</string>
+    <string name="lbl_card_field_feels_like">Feels like %s</string>
     <string name="lbl_card_field_min_temperature">Min: %s</string>
     <string name="lbl_card_field_max_temperature">Max: %s</string>
 
