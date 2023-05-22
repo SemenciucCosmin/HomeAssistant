@@ -5,23 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.homeassistant.R
-import com.example.homeassistant.domain.AirPollution
+import com.example.homeassistant.domain.AirQuality
 import com.example.homeassistant.ui.viewholder.AirQualityRecordViewHolder
 
 class AirQualityRecordsAdapter :
-    ListAdapter<AirPollution, AirQualityRecordViewHolder>(DiffCallback) {
+    ListAdapter<AirQuality, AirQualityRecordViewHolder>(DiffCallback) {
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<AirPollution>() {
+        private val DiffCallback = object : DiffUtil.ItemCallback<AirQuality>() {
             override fun areItemsTheSame(
-                oldItem: AirPollution,
-                newItem: AirPollution
+                oldItem: AirQuality,
+                newItem: AirQuality
             ): Boolean {
                 return oldItem.dateTime == newItem.dateTime
             }
 
             override fun areContentsTheSame(
-                oldItem: AirPollution,
-                newItem: AirPollution
+                oldItem: AirQuality,
+                newItem: AirQuality
             ): Boolean {
                 return oldItem == newItem
             }

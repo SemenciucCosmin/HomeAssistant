@@ -1,7 +1,7 @@
 package com.example.homeassistant.repository
 
 import com.example.homeassistant.domain.api.CallResult
-import com.example.homeassistant.domain.api.dto.AirPollutionDto
+import com.example.homeassistant.domain.api.dto.AirQualityDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.api.dto.FiveDaysWeatherDto
 import com.example.homeassistant.service.WeatherApiService
@@ -28,12 +28,12 @@ class WeatherApiRepository {
         )
     }
 
-    suspend fun getAirPollution(
+    suspend fun getAirQuality(
         latitude: Double,
         longitude: Double
-    ): CallResult<AirPollutionDto> {
+    ): CallResult<AirQualityDto> {
         return safeApiCall(
-            call = { getAirPollutionCall(latitude, longitude) },
+            call = { getAirQualityCall(latitude, longitude) },
             errorMessage = "Exception occurred"
         )
     }
@@ -80,11 +80,11 @@ class WeatherApiRepository {
         }
     }
 
-    private suspend fun getAirPollutionCall(
+    private suspend fun getAirQualityCall(
         latitude: Double,
         longitude: Double
-    ): CallResult<AirPollutionDto> {
-        val response = WeatherApiService.airPollutionRetrofitService.getAirPollution(
+    ): CallResult<AirQualityDto> {
+        val response = WeatherApiService.airQualityRetrofitService.getAirQuality(
             latitude,
             longitude
         )

@@ -9,9 +9,8 @@ import com.example.homeassistant.domain.enums.NitrogenDioxideEnum
 import com.example.homeassistant.domain.enums.NitrogenMonoxideEnum
 import com.example.homeassistant.domain.enums.OzoneEnum
 import com.example.homeassistant.domain.enums.SulphurDioxideEnum
-import com.example.homeassistant.domain.settings.Location
 
-data class AirPollution(
+data class AirQuality(
     val dateTime: Long,
     val airQualityIndex: Int,
     val carbonMonoxide: Double,

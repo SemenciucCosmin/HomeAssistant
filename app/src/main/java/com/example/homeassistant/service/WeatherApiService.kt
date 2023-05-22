@@ -1,7 +1,8 @@
 package com.example.homeassistant.service
 
 import com.example.homeassistant.BuildConfig
-import com.example.homeassistant.domain.api.dto.AirPollutionDto
+import com.example.homeassistant.domain.api.dto.AirQualityDto
+import com.example.homeassistant.domain.api.dto.AirQualityIndexDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.api.dto.FiveDaysWeatherDto
 import com.squareup.moshi.Moshi
@@ -39,13 +40,13 @@ interface FiveDaysWeatherApiService {
     ): Response<FiveDaysWeatherDto>
 }
 
-interface AirPollutionApiService {
+interface AirQualityApiService {
     @GET("/data/2.5/air_pollution")
-    suspend fun getAirPollution(
+    suspend fun getAirQuality(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("appid") appId: String = BuildConfig.API_KEY
-    ): Response<AirPollutionDto>
+    ): Response<AirQualityDto>
 }
 
 object WeatherApiService {
@@ -55,7 +56,7 @@ object WeatherApiService {
     val fiveDaysWeatherRetrofitService: FiveDaysWeatherApiService by lazy {
         weatherRetrofit.create(FiveDaysWeatherApiService::class.java)
     }
-    val airPollutionRetrofitService: AirPollutionApiService by lazy {
-        weatherRetrofit.create(AirPollutionApiService::class.java)
+    val airQualityRetrofitService: AirQualityApiService by lazy {
+        weatherRetrofit.create(AirQualityApiService::class.java)
     }
 }

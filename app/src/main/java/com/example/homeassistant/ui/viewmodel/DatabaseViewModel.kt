@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import com.example.homeassistant.domain.AirPollution
+import com.example.homeassistant.domain.AirQuality
 import com.example.homeassistant.domain.enums.AirQualityEnum
 import com.example.homeassistant.domain.enums.AmmoniaEnum
 import com.example.homeassistant.domain.enums.CarbonMonoxideEnum
@@ -18,11 +18,11 @@ import com.example.homeassistant.repository.DatabaseRepository
 import kotlinx.coroutines.flow.map
 
 class DatabaseViewModel(private val databaseRepository: DatabaseRepository) : ViewModel() {
-    fun getAirQualityRecords(): LiveData<List<AirPollution>> {
+    fun getAirQualityRecords(): LiveData<List<AirQuality>> {
         val records = databaseRepository.getAirQualityRecords()
         return records.map {
             it.map { airQualityEntity ->
-                AirPollution(
+                AirQuality(
                     dateTime = airQualityEntity.dateTime,
                     airQualityIndex = airQualityEntity.airQualityIndex,
                     carbonMonoxide = airQualityEntity.carbonMonoxide,

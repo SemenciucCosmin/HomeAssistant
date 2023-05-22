@@ -19,7 +19,7 @@ import com.example.homeassistant.domain.enums.NitrogenDioxideEnum
 import com.example.homeassistant.domain.enums.NitrogenMonoxideEnum
 import com.example.homeassistant.domain.enums.OzoneEnum
 import com.example.homeassistant.domain.enums.SulphurDioxideEnum
-import com.example.homeassistant.domain.AirPollution
+import com.example.homeassistant.domain.AirQuality
 import com.example.homeassistant.repository.SettingsRepository
 import com.example.homeassistant.repository.WeatherApiRepository
 import com.example.homeassistant.ui.viewmodel.SettingsViewModel
@@ -137,12 +137,12 @@ class AirQualityFragment : Fragment() {
         setRanges()
 
         settingsViewModel.getSettings().observe(viewLifecycleOwner) { settings ->
-            weatherApiViewModel.getAirPollution(settings)
+            weatherApiViewModel.getAirQuality(settings)
         }
 
         weatherApiViewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            if (uiState.airPollution != null) {
-                setCardValues(uiState.airPollution)
+            if (uiState.airQuality != null) {
+                setCardValues(uiState.airQuality)
             }
         }
     }
@@ -299,75 +299,75 @@ class AirQualityFragment : Fragment() {
         coarseParticlesVeryPoorRange.text = getString(R.string.lbl_coarse_particles_very_poor_range)
     }
 
-    private fun setCardValues(airPollution: AirPollution) {
-        val airQuality = AirQualityEnum.getQualityByValue(airPollution.airQualityIndex)
+    private fun setCardValues(airQuality: AirQuality) {
+        val airQualityEnum = AirQualityEnum.getQualityByValue(airQuality.airQualityIndex)
         airQualityValue.text = getString(
             R.string.lbl_quality_card_current_index,
-            airPollution.airQualityIndex,
-            getString(airQuality.qualityStringId)
+            airQuality.airQualityIndex,
+            getString(airQualityEnum.qualityStringId)
 
         )
 
-        val carbonMonoxide = CarbonMonoxideEnum.getQualityByValue(airPollution.carbonMonoxide)
+        val carbonMonoxide = CarbonMonoxideEnum.getQualityByValue(airQuality.carbonMonoxide)
         carbonMonoxideValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.carbonMonoxide,
+            airQuality.carbonMonoxide,
             getString(carbonMonoxide.qualityStringId)
 
         )
 
-        val nitrogenMonoxide = NitrogenMonoxideEnum.getQualityByValue(airPollution.nitrogenMonoxide)
+        val nitrogenMonoxide = NitrogenMonoxideEnum.getQualityByValue(airQuality.nitrogenMonoxide)
         nitrogenMonoxideValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.nitrogenMonoxide,
+            airQuality.nitrogenMonoxide,
             getString(nitrogenMonoxide.qualityStringId)
 
         )
 
-        val nitrogenDioxide = NitrogenDioxideEnum.getQualityByValue(airPollution.nitrogenDioxide)
+        val nitrogenDioxide = NitrogenDioxideEnum.getQualityByValue(airQuality.nitrogenDioxide)
         nitrogenDioxideValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.nitrogenDioxide,
+            airQuality.nitrogenDioxide,
             getString(nitrogenDioxide.qualityStringId)
 
         )
 
-        val ozone = OzoneEnum.getQualityByValue(airPollution.ozone)
+        val ozone = OzoneEnum.getQualityByValue(airQuality.ozone)
         ozoneValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.ozone,
+            airQuality.ozone,
             getString(ozone.qualityStringId)
 
         )
 
-        val sulphurDioxide = SulphurDioxideEnum.getQualityByValue(airPollution.sulphurDioxide)
+        val sulphurDioxide = SulphurDioxideEnum.getQualityByValue(airQuality.sulphurDioxide)
         sulphurDioxideValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.sulphurDioxide,
+            airQuality.sulphurDioxide,
             getString(sulphurDioxide.qualityStringId)
 
         )
 
-        val ammonia = AmmoniaEnum.getQualityByValue(airPollution.ammonia)
+        val ammonia = AmmoniaEnum.getQualityByValue(airQuality.ammonia)
         ammoniaValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.ammonia,
+            airQuality.ammonia,
             getString(ammonia.qualityStringId)
 
         )
 
-        val fineParticles = FineParticlesEnum.getQualityByValue(airPollution.fineParticles)
+        val fineParticles = FineParticlesEnum.getQualityByValue(airQuality.fineParticles)
         fineParticlesValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.fineParticles,
+            airQuality.fineParticles,
             getString(fineParticles.qualityStringId)
 
         )
 
-        val coarseParticles = CoarseParticlesEnum.getQualityByValue(airPollution.coarseParticles)
+        val coarseParticles = CoarseParticlesEnum.getQualityByValue(airQuality.coarseParticles)
         coarseParticlesValue.text = getString(
             R.string.lbl_quality_card_current_value,
-            airPollution.coarseParticles,
+            airQuality.coarseParticles,
             getString(coarseParticles.qualityStringId)
 
         )

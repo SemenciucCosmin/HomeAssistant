@@ -18,7 +18,7 @@ import com.example.homeassistant.datasource.BluetoothStatusDataSource
 import com.example.homeassistant.datasource.DeviceDataSource
 import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
-import com.example.homeassistant.domain.AirPollution
+import com.example.homeassistant.domain.AirQuality
 import com.example.homeassistant.domain.bluetooth.BluetoothStatus
 import com.example.homeassistant.domain.settings.TemperatureType
 import com.example.homeassistant.repository.BluetoothRepository
@@ -109,7 +109,7 @@ class TodayFragment : Fragment() {
         settingsViewModel.getSettings().observe(viewLifecycleOwner) { settings ->
             weatherApiViewModel.setStringIds(settings)
             weatherApiViewModel.getCurrentWeather(settings)
-            weatherApiViewModel.getAirPollution(settings)
+            weatherApiViewModel.getAirQuality(settings)
             bluetoothViewModel.setTemperatureType(settings.temperatureUnit)
         }
 
@@ -143,8 +143,8 @@ class TodayFragment : Fragment() {
                 )
             }
 
-            if (uiState.airPollution != null) {
-                setAirQualityCard(uiState.airPollution)
+            if (uiState.airQuality != null) {
+                setAirQualityCard(uiState.airQuality)
             }
         }
 
@@ -305,26 +305,26 @@ class TodayFragment : Fragment() {
         cloudinessView.text = getString(R.string.lbl_card_field_cloudiness, cloudiness)
     }
 
-    private fun setAirQualityCard(airPollution: AirPollution) {
+    private fun setAirQualityCard(airQuality: AirQuality) {
         qualityIndexView.text = getString(
             R.string.lbl_card_field_quality_index,
-            airPollution.airQualityIndex,
-            getString(airPollution.airQualityIndexEnum.qualityStringId)
+            airQuality.airQualityIndex,
+            getString(airQuality.airQualityIndexEnum.qualityStringId)
         )
         carbonMonoxideView.text = getString(
             R.string.lbl_card_field_carbon_monoxide,
-            airPollution.carbonMonoxide,
-            getString(airPollution.carbonMonoxideEnum.qualityStringId)
+            airQuality.carbonMonoxide,
+            getString(airQuality.carbonMonoxideEnum.qualityStringId)
         )
         fineParticlesView.text = getString(
             R.string.lbl_card_field_fine_particles,
-            airPollution.fineParticles,
-            getString(airPollution.fineParticlesEnum.qualityStringId)
+            airQuality.fineParticles,
+            getString(airQuality.fineParticlesEnum.qualityStringId)
         )
         coarseParticlesView.text = getString(
             R.string.lbl_card_field_coarse_particles,
-            airPollution.coarseParticles,
-            getString(airPollution.coarseParticlesEnum.qualityStringId)
+            airQuality.coarseParticles,
+            getString(airQuality.coarseParticlesEnum.qualityStringId)
         )
     }
 }

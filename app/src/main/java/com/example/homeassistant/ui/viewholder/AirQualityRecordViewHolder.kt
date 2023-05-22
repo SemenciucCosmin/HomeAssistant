@@ -13,7 +13,7 @@ import com.example.homeassistant.domain.enums.NitrogenDioxideEnum
 import com.example.homeassistant.domain.enums.NitrogenMonoxideEnum
 import com.example.homeassistant.domain.enums.OzoneEnum
 import com.example.homeassistant.domain.enums.SulphurDioxideEnum
-import com.example.homeassistant.domain.AirPollution
+import com.example.homeassistant.domain.AirQuality
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -39,81 +39,81 @@ class AirQualityRecordViewHolder(private val view: View) : RecyclerView.ViewHold
     private val coarseParticlesValue = view.findViewById<TextView>(R.id.coarse_particles_value)
     private val coarseParticlesQuality = view.findViewById<TextView>(R.id.coarse_particles_quality)
 
-    fun bind(airPollution: AirPollution) {
+    fun bind(airQuality: AirQuality) {
         val timeFormatter = SimpleDateFormat(
             view.context.getString(R.string.lbl_record_date_format),
             Locale.ENGLISH
         )
-        val date = timeFormatter.format(Date(airPollution.dateTime * 1000))
+        val date = timeFormatter.format(Date(airQuality.dateTime * 1000))
         airQualityRecordDate.text = date
 
-        airQualityValue.text = airPollution.airQualityIndex.toString()
+        airQualityValue.text = airQuality.airQualityIndex.toString()
         airQualityQuality.text = view.context.getString(
-            AirQualityEnum.getQualityByValue(airPollution.airQualityIndex).qualityStringId
+            AirQualityEnum.getQualityByValue(airQuality.airQualityIndex).qualityStringId
         )
 
         carbonMonoxideValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.carbonMonoxide
+            airQuality.carbonMonoxide
         )
         carbonMonoxideQuality.text = view.context.getString(
-            CarbonMonoxideEnum.getQualityByValue(airPollution.carbonMonoxide).qualityStringId
+            CarbonMonoxideEnum.getQualityByValue(airQuality.carbonMonoxide).qualityStringId
         )
 
         nitrogenMonoxideValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.nitrogenMonoxide
+            airQuality.nitrogenMonoxide
         )
         nitrogenMonoxideQuality.text = view.context.getString(
-            NitrogenMonoxideEnum.getQualityByValue(airPollution.nitrogenMonoxide).qualityStringId
+            NitrogenMonoxideEnum.getQualityByValue(airQuality.nitrogenMonoxide).qualityStringId
         )
 
         nitrogenDioxideValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.nitrogenDioxide
+            airQuality.nitrogenDioxide
         )
         nitrogenDioxideQuality.text = view.context.getString(
-            NitrogenDioxideEnum.getQualityByValue(airPollution.nitrogenDioxide).qualityStringId
+            NitrogenDioxideEnum.getQualityByValue(airQuality.nitrogenDioxide).qualityStringId
         )
 
         ozoneValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.ozone
+            airQuality.ozone
         )
         ozoneQuality.text = view.context.getString(
-            OzoneEnum.getQualityByValue(airPollution.ozone).qualityStringId
+            OzoneEnum.getQualityByValue(airQuality.ozone).qualityStringId
         )
 
         sulphurDioxideValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.sulphurDioxide
+            airQuality.sulphurDioxide
         )
         sulphurDioxideQuality.text = view.context.getString(
-            SulphurDioxideEnum.getQualityByValue(airPollution.sulphurDioxide).qualityStringId
+            SulphurDioxideEnum.getQualityByValue(airQuality.sulphurDioxide).qualityStringId
         )
 
         ammoniaValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.ammonia
+            airQuality.ammonia
         )
         ammoniaQuality.text = view.context.getString(
-            AmmoniaEnum.getQualityByValue(airPollution.ammonia).qualityStringId
+            AmmoniaEnum.getQualityByValue(airQuality.ammonia).qualityStringId
         )
 
         fineParticlesValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.fineParticles
+            airQuality.fineParticles
         )
         fineParticlesQuality.text = view.context.getString(
-            FineParticlesEnum.getQualityByValue(airPollution.fineParticles).qualityStringId
+            FineParticlesEnum.getQualityByValue(airQuality.fineParticles).qualityStringId
         )
 
         coarseParticlesValue.text = view.context.getString(
             R.string.lbl_float_format,
-            airPollution.coarseParticles
+            airQuality.coarseParticles
         )
         coarseParticlesQuality.text = view.context.getString(
-            CoarseParticlesEnum.getQualityByValue(airPollution.coarseParticles).qualityStringId
+            CoarseParticlesEnum.getQualityByValue(airQuality.coarseParticles).qualityStringId
         )
     }
 }

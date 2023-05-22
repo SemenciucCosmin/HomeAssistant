@@ -15,13 +15,14 @@ import com.example.homeassistant.domain.enums.NitrogenDioxideEnum
 import com.example.homeassistant.domain.enums.NitrogenMonoxideEnum
 import com.example.homeassistant.domain.enums.OzoneEnum
 import com.example.homeassistant.domain.enums.SulphurDioxideEnum
-import com.example.homeassistant.domain.AirPollution
+import com.example.homeassistant.domain.AirQuality
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.City
 import com.example.homeassistant.domain.CurrentWeather
 import com.example.homeassistant.domain.FiveDaysWeather
 import com.example.homeassistant.domain.Forecast
-import com.example.homeassistant.domain.api.dto.AirPollutionDto
+import com.example.homeassistant.domain.api.dto.AirQualityDto
+import com.example.homeassistant.domain.api.dto.AirQualityIndexDto
 import com.example.homeassistant.domain.api.dto.CityDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.api.dto.ForecastDto
@@ -84,21 +85,21 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         }
     }
 
-    fun getAirPollution(settings: Settings) {
+    fun getAirQuality(settings: Settings) {
         viewModelScope.launch {
-            val callResult = weatherApiRepository.getAirPollution(
+            val callResult = weatherApiRepository.getAirQuality(
                 settings.location.latitude,
                 settings.location.longitude
             )
 
             when (callResult) {
                 is CallResult.Success -> {
-                    val airPollution = getAirPollutionFromDto(callResult.data)
-                    _uiState.value = _uiState.value?.copy(airPollution = airPollution)
+                    val airQuality = getAirQualityFromDto(callResult.data)
+                    _uiState.value = _uiState.value?.copy(airQuality = airQuality)
                 }
 
                 is CallResult.Error -> {
-                    _uiState.value = _uiState.value?.copy(airPollutionError = API_ERROR_MESSAGE)
+                    _uiState.value = _uiState.value?.copy(airQualityError = API_ERROR_MESSAGE)
                 }
             }
         }
@@ -212,10 +213,10 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         )
     }
 
-    private fun getAirPollutionFromDto(airPollutionDto: AirPollutionDto): AirPollution? {
-        val dateTime = airPollutionDto.detailsDto?.first()?.dateTime ?: return null
-        val details = airPollutionDto.detailsDto.first()
-        val airQualityIndex = details.airQualityDto?.index ?: return null
+    private fun getAirQualityFromDto(airQualityDto: AirQualityDto): AirQuality? {
+        val dateTime = airQualityDto.detailsDto?.first()?.dateTime ?: return null
+        val details = airQualityDto.detailsDto.first()
+        val airQualityIndex = details.airQualityIndexDto?.index ?: return null
         val carbonMonoxide = details.componentsDto?.carbonMonoxide ?: return null
         val nitrogenMonoxide = details.componentsDto.nitrogenMonoxide ?: return null
         val nitrogenDioxide = details.componentsDto.nitrogenDioxide ?: return null
@@ -225,7 +226,7 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         val coarseParticles = details.componentsDto.coarseParticles ?: return null
         val ammonia = details.componentsDto.ammonia ?: return null
 
-        return AirPollution(
+        return AirQuality(
             dateTime = dateTime,
             airQualityIndex = airQualityIndex,
             carbonMonoxide = carbonMonoxide,
@@ -271,8 +272,8 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         val currentWeatherError: String? = null,
         val fiveDaysWeather: FiveDaysWeather? = null,
         val fiveDaysWeatherError: String? = null,
-        val airPollution: AirPollution? = null,
-        val airPollutionError: String? = null,
+        val airQuality: AirQuality? = null,
+        val airQualityError: String? = null,
         val temperatureValueStringId: Int = R.string.lbl_unit_value_celsius,
         val pressureValueStringId: Int = R.string.lbl_unit_value_hpa,
         val speedValueStringId: Int = R.string.lbl_unit_value_meters_per_second,

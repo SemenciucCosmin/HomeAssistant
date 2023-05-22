@@ -9,7 +9,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.homeassistant.database.HomeAssistantDatabase
 import com.example.homeassistant.domain.api.CallResult
-import com.example.homeassistant.domain.api.dto.AirPollutionDto
+import com.example.homeassistant.domain.api.dto.AirQualityDto
 import com.example.homeassistant.domain.database.AirQualityEntity
 import com.example.homeassistant.repository.DatabaseRepository
 import com.example.homeassistant.repository.WeatherApiRepository
@@ -35,11 +35,11 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
             }
 
             if (latitude != 0.0 && longitude != 0.0) {
-                val airPollutionCallResult = weatherApiRepository.getAirPollution(
+                val airQualityCallResult = weatherApiRepository.getAirQuality(
                     latitude = latitude,
                     longitude = longitude
                 )
-                addAirQualityRecord(airPollutionCallResult)
+                addAirQualityRecord(airQualityCallResult)
             }
         }
         return Result.success()
@@ -55,18 +55,18 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private suspend fun addAirQualityRecord(airPollutionCallResult: CallResult<AirPollutionDto>) {
-        if (airPollutionCallResult is CallResult.Success) {
-            val airPollutionDto = airPollutionCallResult.data
-            val airQualityEntity = fromDtoToEntity(airPollutionDto)
+    private suspend fun addAirQualityRecord(airQualityCallResult: CallResult<AirQualityDto>) {
+        if (airQualityCallResult is CallResult.Success) {
+            val airQualityDto = airQualityCallResult.data
+            val airQualityEntity = fromDtoToEntity(airQualityDto)
             databaseRepository.insert(airQualityEntity)
         }
     }
 
-    private fun fromDtoToEntity(airPollutionDto: AirPollutionDto): AirQualityEntity {
-        val details = airPollutionDto.detailsDto?.first()
+    private fun fromDtoToEntity(airQualityDto: AirQualityDto): AirQualityEntity {
+        val details = airQualityDto.detailsDto?.first()
         val dateTime = details?.dateTime ?: System.currentTimeMillis()
-        val airQualityIndex = details?.airQualityDto?.index ?: 0
+        val airQualityIndex = details?.airQualityIndexDto?.index ?: 0
         val carbonMonoxide = details?.componentsDto?.carbonMonoxide ?: 0.0
         val nitrogenMonoxide = details?.componentsDto?.nitrogenMonoxide ?: 0.0
         val nitrogenDioxide = details?.componentsDto?.nitrogenDioxide ?: 0.0
