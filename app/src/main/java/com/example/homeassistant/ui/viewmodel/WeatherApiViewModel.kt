@@ -6,21 +6,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.homeassistant.R
-import com.example.homeassistant.domain.AirQualityEnum
-import com.example.homeassistant.domain.AmmoniaEnum
-import com.example.homeassistant.domain.CarbonMonoxideEnum
-import com.example.homeassistant.domain.CoarseParticlesEnum
-import com.example.homeassistant.domain.FineParticlesEnum
-import com.example.homeassistant.domain.NitrogenDioxideEnum
-import com.example.homeassistant.domain.NitrogenMonoxideEnum
-import com.example.homeassistant.domain.OzoneEnum
-import com.example.homeassistant.domain.SulphurDioxideEnum
-import com.example.homeassistant.domain.api.AirPollution
+import com.example.homeassistant.domain.enums.AirQualityEnum
+import com.example.homeassistant.domain.enums.AmmoniaEnum
+import com.example.homeassistant.domain.enums.CarbonMonoxideEnum
+import com.example.homeassistant.domain.enums.CoarseParticlesEnum
+import com.example.homeassistant.domain.enums.FineParticlesEnum
+import com.example.homeassistant.domain.enums.NitrogenDioxideEnum
+import com.example.homeassistant.domain.enums.NitrogenMonoxideEnum
+import com.example.homeassistant.domain.enums.OzoneEnum
+import com.example.homeassistant.domain.enums.SulphurDioxideEnum
+import com.example.homeassistant.domain.AirPollution
 import com.example.homeassistant.domain.api.CallResult
-import com.example.homeassistant.domain.api.City
-import com.example.homeassistant.domain.api.CurrentWeather
-import com.example.homeassistant.domain.api.FiveDaysWeather
-import com.example.homeassistant.domain.api.Forecast
+import com.example.homeassistant.domain.City
+import com.example.homeassistant.domain.CurrentWeather
+import com.example.homeassistant.domain.FiveDaysWeather
+import com.example.homeassistant.domain.Forecast
 import com.example.homeassistant.domain.api.dto.AirPollutionDto
 import com.example.homeassistant.domain.api.dto.CityDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
@@ -213,8 +213,6 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
     }
 
     private fun getAirPollutionFromDto(airPollutionDto: AirPollutionDto): AirPollution? {
-        val latitude = airPollutionDto.locationDto?.latitude ?: return null
-        val longitude = airPollutionDto.locationDto.longitude ?: return null
         val dateTime = airPollutionDto.detailsDto?.first()?.dateTime ?: return null
         val details = airPollutionDto.detailsDto.first()
         val airQualityIndex = details.airQualityDto?.index ?: return null
@@ -228,7 +226,6 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         val ammonia = details.componentsDto.ammonia ?: return null
 
         return AirPollution(
-            location = Location(latitude, longitude),
             dateTime = dateTime,
             airQualityIndex = airQualityIndex,
             carbonMonoxide = carbonMonoxide,

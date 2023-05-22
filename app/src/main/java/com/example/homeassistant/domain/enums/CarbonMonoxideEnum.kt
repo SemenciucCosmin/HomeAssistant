@@ -1,4 +1,4 @@
-package com.example.homeassistant.domain
+package com.example.homeassistant.domain.enums
 
 import com.example.homeassistant.R
 import kotlin.math.roundToInt

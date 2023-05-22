@@ -1,6 +1,7 @@
 package com.example.homeassistant.ui.activity
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -15,17 +16,40 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.Data
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.homeassistant.R
 import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.repository.SettingsRepository
 import com.example.homeassistant.ui.viewmodel.SettingsViewModel
+import com.example.homeassistant.worker.AddRecordsWorker
+import com.example.homeassistant.worker.CleanRecordsWorker
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationView
+import org.joda.time.DateTime
+import org.joda.time.Duration
+import java.util.concurrent.TimeUnit
+
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val ADD_RECORDS_WORKER_TAG = "add_records_worker"
+        private const val CLEAN_RECORDS_WORKER_TAG = "clean_records_worker"
+        private const val ADD_RECORDS_WORKER_INTERVAL = 24L
+        private const val CLEAN_RECORDS_WORKER_INTERVAL = 120L
+        fun startActivity(activity: StartupChecksActivity) {
+            val intent = Intent(activity, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            }
+            activity.startActivity(intent)
+        }
+    }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -74,7 +98,17 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        StartupChecksActivity.startActivity(this)
+        val delay = if (DateTime.now().hourOfDay < 12) {
+            Duration(
+                DateTime.now(),
+                DateTime.now().withTimeAtStartOfDay().plusHours(12)
+            ).standardMinutes
+        } else {
+            Duration(
+                DateTime.now(),
+                DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(1)
+            ).standardMinutes
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
@@ -94,9 +128,43 @@ class MainActivity : AppCompatActivity() {
                         ),
                         this
                     )
+
+                    val data = Data.Builder()
+                    data.putDouble("latitude", location.latitude)
+                    data.putDouble("longitude", location.longitude)
+
+                    val addRecordsWorkRequest: PeriodicWorkRequest = PeriodicWorkRequest.Builder(
+                        AddRecordsWorker::class.java,
+                        ADD_RECORDS_WORKER_INTERVAL,
+                        TimeUnit.HOURS
+                    )
+                        .addTag(ADD_RECORDS_WORKER_TAG)
+                        .setInputData(data.build())
+                        .setInitialDelay(delay, TimeUnit.MINUTES)
+                        .build()
+
+                    WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                        ADD_RECORDS_WORKER_TAG,
+                        ExistingPeriodicWorkPolicy.KEEP,
+                        addRecordsWorkRequest
+                    )
                 }
             }
         }
+
+        val cleanRecordsWorkRequest: PeriodicWorkRequest = PeriodicWorkRequest.Builder(
+            CleanRecordsWorker::class.java,
+            CLEAN_RECORDS_WORKER_INTERVAL,
+            TimeUnit.DAYS
+        )
+            .addTag(CLEAN_RECORDS_WORKER_TAG)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            CLEAN_RECORDS_WORKER_TAG,
+            ExistingPeriodicWorkPolicy.KEEP,
+            cleanRecordsWorkRequest
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

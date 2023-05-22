@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -39,13 +42,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
     }
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.10.1")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -65,6 +72,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("androidx.work:work-testing:2.8.1")
+    implementation("androidx.test:core-ktx:1.5.0")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
 
     testImplementation("junit:junit:4.13.2")
 
@@ -74,9 +84,19 @@ dependencies {
     implementation("androidx.datastore:datastore-core:1.0.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
-    implementation ("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    implementation("androidx.room:room-runtime:2.5.1")
+    implementation("androidx.room:room-ktx:2.5.1")
+    ksp("androidx.room:room-compiler:2.5.1")
+
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+
+    implementation("joda-time:joda-time:2.10.14")
+
+    implementation("androidx.concurrent:concurrent-futures-ktx:1.1.0")
 }

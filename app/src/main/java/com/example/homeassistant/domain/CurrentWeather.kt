@@ -1,4 +1,4 @@
-package com.example.homeassistant.domain.api
+package com.example.homeassistant.domain
 
 import com.example.homeassistant.domain.settings.Location
 

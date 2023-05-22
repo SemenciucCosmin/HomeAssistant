@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/air_quality_record_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/separator_date"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/air_quality_record_date" />
+
+        <!--    AIR QUALITY  -->
+
+        <TextView
+            android:id="@+id/air_quality_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_air_quality"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_date" />
+
+        <TextView
+            android:id="@+id/air_quality_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_date"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/air_quality_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_date"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_air_quality"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/air_quality_value" />
+
+        <!--    CARBON MONOXIDE    -->
+
+        <TextView
+            android:id="@+id/carbon_monoxide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_carbon_monoxide"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_air_quality" />
+
+        <TextView
+            android:id="@+id/carbon_monoxide_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_air_quality"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/carbon_monoxide_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_air_quality"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_carbon_monoxide"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carbon_monoxide_value" />
+
+
+        <!--    NITROGEN MONOXIDE    -->
+
+        <TextView
+            android:id="@+id/nitrogen_monoxide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_nitrogen_monoxide"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_carbon_monoxide" />
+
+        <TextView
+            android:id="@+id/nitrogen_monoxide_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_carbon_monoxide"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/nitrogen_monoxide_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_carbon_monoxide"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_nitrogen_monoxide"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nitrogen_monoxide_value" />
+
+        <!--    NITROGEN DIOXIDE    -->
+
+        <TextView
+            android:id="@+id/nitrogen_dioxide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_nitrogen_dioxide"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_nitrogen_monoxide" />
+
+        <TextView
+            android:id="@+id/nitrogen_dioxide_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_nitrogen_monoxide"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/nitrogen_dioxide_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_nitrogen_monoxide"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_nitrogen_dioxide"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nitrogen_dioxide_value" />
+
+        <!--    OZONE    -->
+
+        <TextView
+            android:id="@+id/ozone_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_ozone"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_nitrogen_dioxide" />
+
+        <TextView
+            android:id="@+id/ozone_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_nitrogen_dioxide"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/ozone_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_nitrogen_dioxide"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_ozone"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ozone_value" />
+
+        <!--    SULPHUR DIOXIDE    -->
+
+        <TextView
+            android:id="@+id/sulphur_dioxide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_sulphur"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_ozone" />
+
+        <TextView
+            android:id="@+id/sulphur_dioxide_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_ozone"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/sulphur_dioxide_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_ozone"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_sulphur_dioxide"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sulphur_dioxide_value" />
+
+        <!--    AMMONIA    -->
+
+        <TextView
+            android:id="@+id/ammonia_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_ammonia"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_sulphur_dioxide" />
+
+        <TextView
+            android:id="@+id/ammonia_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_sulphur_dioxide"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/ammonia_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_sulphur_dioxide"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_ammonia"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ammonia_value" />
+
+        <!--    FINE PARTICLES    -->
+
+        <TextView
+            android:id="@+id/fine_particles_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_fine_particles"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_ammonia" />
+
+        <TextView
+            android:id="@+id/fine_particles_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_ammonia"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/fine_particles_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_ammonia"
+            tools:text="Moderate" />
+
+        <View
+            android:id="@+id/separator_fine_particles"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="?attr/colorPrimarySurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fine_particles_value" />
+
+        <!--    COARSE PARTICLES    -->
+
+        <TextView
+            android:id="@+id/coarse_particles_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lbl_coarse_particles"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/guideline_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator_fine_particles" />
+
+        <TextView
+            android:id="@+id/coarse_particles_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/guideline_2"
+            app:layout_constraintStart_toEndOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/separator_fine_particles"
+            tools:text="15400" />
+
+        <TextView
+            android:id="@+id/coarse_particles_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_2"
+            app:layout_constraintTop_toBottomOf="@id/separator_fine_particles"
+            tools:text="Moderate" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,22 +1,22 @@
-package com.example.homeassistant.domain
+package com.example.homeassistant.domain.enums
 
 import com.example.homeassistant.R
 import kotlin.math.roundToInt
 
-enum class AmmoniaEnum(
-    val titleStringId: Int = R.string.lbl_ammonia,
+enum class NitrogenDioxideEnum(
+    val titleStringId: Int = R.string.lbl_nitrogen_dioxide,
     val lowerBound: Int,
     val upperBound: Int,
     val qualityStringId: Int
 ) {
-    GOOD(lowerBound = 0, upperBound = 20, qualityStringId = R.string.lbl_quality_good),
-    FAIR(lowerBound = 20, upperBound = 50, qualityStringId = R.string.lbl_quality_fair),
-    MODERATE(lowerBound = 50, upperBound = 100, qualityStringId = R.string.lbl_quality_moderate),
-    POOR(lowerBound = 100, upperBound = 200, qualityStringId = R.string.lbl_quality_poor),
+    GOOD(lowerBound = 0, upperBound = 40, qualityStringId = R.string.lbl_quality_good),
+    FAIR(lowerBound = 40, upperBound = 70, qualityStringId = R.string.lbl_quality_fair),
+    MODERATE(lowerBound = 70, upperBound = 150, qualityStringId = R.string.lbl_quality_moderate),
+    POOR(lowerBound = 150, upperBound = 200, qualityStringId = R.string.lbl_quality_poor),
     VERY_POOR(lowerBound = 200, upperBound = Int.MAX_VALUE, qualityStringId = R.string.lbl_quality_very_poor);
 
     companion object {
-        fun getQualityByValue(value: Double): AmmoniaEnum {
+        fun getQualityByValue(value: Double): NitrogenDioxideEnum {
             return when (value.roundToInt()) {
                 in (GOOD.lowerBound..GOOD.upperBound) -> GOOD
                 in (FAIR.lowerBound..FAIR.upperBound) -> FAIR

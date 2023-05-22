@@ -1,7 +1,6 @@
 package com.example.homeassistant.ui.activity
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -13,12 +12,6 @@ import androidx.core.app.ActivityCompat
 class StartupChecksActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "StartupChecksActivity"
-        fun startActivity(activity: MainActivity) {
-            val intent = Intent(activity, StartupChecksActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            }
-            activity.startActivity(intent)
-        }
     }
 
     private val bluetoothPermissionLauncher = registerForActivityResult(
@@ -34,6 +27,7 @@ class StartupChecksActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         Log.d(TAG, "Location permission granted: $isGranted")
+        MainActivity.startActivity(this)
         this.finish()
         overridePendingTransition(0, 0)
     }
@@ -77,6 +71,7 @@ class StartupChecksActivity : AppCompatActivity() {
             fineLocationPermission == PackageManager.PERMISSION_GRANTED
         ) {
             Log.d(TAG, "Location permission is already granted")
+            MainActivity.startActivity(this)
             this.finish()
             overridePendingTransition(0, 0)
         } else {

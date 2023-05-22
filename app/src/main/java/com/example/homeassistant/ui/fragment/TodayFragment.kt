@@ -18,7 +18,7 @@ import com.example.homeassistant.datasource.BluetoothStatusDataSource
 import com.example.homeassistant.datasource.DeviceDataSource
 import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
-import com.example.homeassistant.domain.api.AirPollution
+import com.example.homeassistant.domain.AirPollution
 import com.example.homeassistant.domain.bluetooth.BluetoothStatus
 import com.example.homeassistant.domain.settings.TemperatureType
 import com.example.homeassistant.repository.BluetoothRepository

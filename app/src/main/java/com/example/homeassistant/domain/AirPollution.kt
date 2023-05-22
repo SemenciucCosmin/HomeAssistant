@@ -1,18 +1,17 @@
-package com.example.homeassistant.domain.api
+package com.example.homeassistant.domain
 
-import com.example.homeassistant.domain.AirQualityEnum
-import com.example.homeassistant.domain.AmmoniaEnum
-import com.example.homeassistant.domain.CarbonMonoxideEnum
-import com.example.homeassistant.domain.CoarseParticlesEnum
-import com.example.homeassistant.domain.FineParticlesEnum
-import com.example.homeassistant.domain.NitrogenDioxideEnum
-import com.example.homeassistant.domain.NitrogenMonoxideEnum
-import com.example.homeassistant.domain.OzoneEnum
-import com.example.homeassistant.domain.SulphurDioxideEnum
+import com.example.homeassistant.domain.enums.AirQualityEnum
+import com.example.homeassistant.domain.enums.AmmoniaEnum
+import com.example.homeassistant.domain.enums.CarbonMonoxideEnum
+import com.example.homeassistant.domain.enums.CoarseParticlesEnum
+import com.example.homeassistant.domain.enums.FineParticlesEnum
+import com.example.homeassistant.domain.enums.NitrogenDioxideEnum
+import com.example.homeassistant.domain.enums.NitrogenMonoxideEnum
+import com.example.homeassistant.domain.enums.OzoneEnum
+import com.example.homeassistant.domain.enums.SulphurDioxideEnum
 import com.example.homeassistant.domain.settings.Location
 
 data class AirPollution(
-    val location: Location,
     val dateTime: Long,
     val airQualityIndex: Int,
     val carbonMonoxide: Double,
