@@ -180,6 +180,7 @@
     <string name="lbl_quality_card_current_value">Current value: %.2f (%s)</string>
 
     <string name="lbl_record_date_format">EEE, d MMM yyyy</string>
+    <string name="lbl_chart_date_format">dd.MM</string>
 
     <string name="lbl_float_format">%.2f</string>
 

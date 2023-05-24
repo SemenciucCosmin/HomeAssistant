@@ -156,7 +156,7 @@ class TodayFragment : Fragment() {
             )
         }
 
-        bluetoothManager = requireActivity().getSystemService(BluetoothManager::class.java)
+        bluetoothManager = requireContext().getSystemService(BluetoothManager::class.java)
         bluetoothAdapter = bluetoothManager.adapter
 
         bluetoothViewModel.getBluetoothInformation().observe(viewLifecycleOwner) { bluetooth ->

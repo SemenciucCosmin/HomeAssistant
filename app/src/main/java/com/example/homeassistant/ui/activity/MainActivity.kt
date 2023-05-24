@@ -44,9 +44,7 @@ class MainActivity : AppCompatActivity() {
         private const val ADD_RECORDS_WORKER_INTERVAL = 24L
         private const val CLEAN_RECORDS_WORKER_INTERVAL = 120L
         fun startActivity(activity: StartupChecksActivity) {
-            val intent = Intent(activity, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            }
+            val intent = Intent(activity, MainActivity::class.java)
             activity.startActivity(intent)
         }
     }
@@ -140,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                     )
                         .addTag(ADD_RECORDS_WORKER_TAG)
                         .setInputData(data.build())
-//                        .setInitialDelay(delay, TimeUnit.MINUTES)
+                        .setInitialDelay(delay, TimeUnit.MINUTES)
                         .build()
 
                     WorkManager.getInstance(this).enqueueUniquePeriodicWork(

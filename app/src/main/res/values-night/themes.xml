@@ -13,6 +13,8 @@
 
         <item name="colorOutline">@color/gray_10</item>
 
+        <item name="colorTertiary">@color/transparent</item>
+
         <item name="colorControlNormal">@color/gray_10</item>
         <item name="colorSwitchThumbNormal">@color/gray_50</item>
 
