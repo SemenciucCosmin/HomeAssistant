@@ -24,12 +24,6 @@
         tools:layout="@layout/fragment_air_quality" />
 
     <fragment
-        android:id="@+id/nav_sensor_records"
-        android:name="com.example.homeassistant.ui.fragment.SensorRecordsFragment"
-        android:label="@string/lbl_sensor_records"
-        tools:layout="@layout/fragment_sensor_records" />
-
-    <fragment
         android:id="@+id/nav_weather_records"
         android:name="com.example.homeassistant.ui.fragment.WeatherRecordsFragment"
         android:label="@string/lbl_weather_records"

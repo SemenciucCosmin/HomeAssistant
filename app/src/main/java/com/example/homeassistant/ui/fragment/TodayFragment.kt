@@ -36,7 +36,6 @@ import java.util.Locale
 
 class TodayFragment : Fragment() {
 
-    private lateinit var cardSensorData: View
     private lateinit var cardCurrentWeather: View
     private lateinit var cardWeatherMeasurements: View
     private lateinit var cardWeatherDetails: View
@@ -183,7 +182,6 @@ class TodayFragment : Fragment() {
     }
 
     private fun initViews() {
-        cardSensorData = requireView().findViewById(R.id.card_sensor_data_click)
         cardCurrentWeather = requireView().findViewById(R.id.card_current_weather_click)
         cardWeatherMeasurements = requireView().findViewById(R.id.card_weather_measurements_click)
         cardWeatherDetails = requireView().findViewById(R.id.card_weather_details_click)
@@ -216,9 +214,6 @@ class TodayFragment : Fragment() {
     }
 
     private fun setClickListeners() {
-        cardSensorData.setOnClickListener {
-            findNavController().navigate(R.id.nav_sensor_records)
-        }
         cardCurrentWeather.setOnClickListener {
             findNavController().navigate(R.id.nav_weather_records)
         }

@@ -13,7 +13,6 @@
     <string name="lbl_today">Today</string>
     <string name="lbl_ten_days_weather">10 Days Weather</string>
     <string name="lbl_air_quality">Air Quality</string>
-    <string name="lbl_sensor_records">Sensor Records</string>
     <string name="lbl_weather_records">Weather Records</string>
     <string name="lbl_air_quality_records">Air Quality Records</string>
     <string name="lbl_device_management">Device Management</string>

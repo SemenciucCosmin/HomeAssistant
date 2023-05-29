@@ -20,11 +20,6 @@
             android:icon="@drawable/ic_air_quality"/>
 
         <item
-            android:id="@+id/nav_sensor_records"
-            android:title="@string/lbl_sensor_records"
-            android:icon="@drawable/ic_statistics"/>
-
-        <item
             android:id="@+id/nav_weather_records"
             android:title="@string/lbl_weather_records"
             android:icon="@drawable/ic_statistics"/>

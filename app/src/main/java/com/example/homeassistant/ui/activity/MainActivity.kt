@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_today,
                 R.id.nav_ten_days_weather,
                 R.id.nav_air_quality,
-                R.id.nav_sensor_records,
                 R.id.nav_weather_records,
                 R.id.nav_air_quality_records,
                 R.id.nav_device_management,
