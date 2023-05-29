@@ -73,7 +73,7 @@ class AirQualityRecordsFragment : Fragment() {
         databaseViewModel.getAirQualityRecords().observe(viewLifecycleOwner) { airQualityRecords ->
             airQualityRecords?.let {
                 airQualityRecordsAdapter.submitList(it)
-                setBarChart(airQualityRecords)
+                setBarChart(airQualityRecords.reversed())
             }
         }
     }
@@ -81,7 +81,7 @@ class AirQualityRecordsFragment : Fragment() {
     private fun setBarChart(airQualityRecords: List<AirQuality>) {
         val formatter = SimpleDateFormat(getString(R.string.lbl_chart_date_format), Locale.ENGLISH)
         val startDate = formatter.format(Date(airQualityRecords.first().dateTime * 1000))
-        val endDate = formatter.format(Date(airQualityRecords.last().dateTime * 1000))
+        val endDate = formatter.format(Date(airQualityRecords.last().dateTime * 1000 + 2592000000L))
         val barData = BarData()
         val numberOfRecords = airQualityRecords.size
         val mainColor = MaterialColors.getColor(

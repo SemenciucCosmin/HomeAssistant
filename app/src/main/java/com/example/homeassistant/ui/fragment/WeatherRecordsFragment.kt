@@ -21,10 +21,7 @@ import com.example.homeassistant.repository.SettingsRepository
 import com.example.homeassistant.ui.adapter.WeatherRecordsAdapter
 import com.example.homeassistant.ui.viewmodel.DatabaseViewModel
 import com.example.homeassistant.ui.viewmodel.SettingsViewModel
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -97,7 +94,7 @@ class WeatherRecordsFragment : Fragment() {
         databaseViewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             uiState.weatherRecords?.let {
                 weatherRecordsAdapter.submitList(it)
-                setBarChart(it)
+                setBarChart(it.reversed())
             }
         }
     }
@@ -105,7 +102,7 @@ class WeatherRecordsFragment : Fragment() {
     private fun setBarChart(weatherRecords: List<WeatherRecord>) {
         val formatter = SimpleDateFormat(getString(R.string.lbl_chart_date_format), Locale.ENGLISH)
         val startDate = formatter.format(Date(weatherRecords.first().weather.dateTime * 1000))
-        val endDate = formatter.format(Date(weatherRecords.last().weather.dateTime * 1000))
+        val endDate = formatter.format(Date(weatherRecords.last().weather.dateTime * 1000 + 2592000000L))
         val lineData = LineData()
         val numberOfRecords = weatherRecords.size
         val mainColor = MaterialColors.getColor(
