@@ -10,8 +10,8 @@
             android:icon="@drawable/ic_calendar"/>
 
         <item
-            android:id="@+id/nav_ten_days_weather"
-            android:title="@string/lbl_ten_days_weather"
+            android:id="@+id/nav_five_days_weather"
+            android:title="@string/lbl_five_days_weather"
             android:icon="@drawable/ic_weather"/>
 
         <item

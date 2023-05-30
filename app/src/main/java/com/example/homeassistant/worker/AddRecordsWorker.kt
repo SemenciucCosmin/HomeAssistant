@@ -2,30 +2,50 @@ package com.example.homeassistant.worker
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.bluetooth.BluetoothManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.example.homeassistant.R
 import com.example.homeassistant.database.HomeAssistantDatabase
+import com.example.homeassistant.datasource.PhonePermissionDataSource
+import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.dto.AirQualityDto
 import com.example.homeassistant.domain.api.dto.CurrentWeatherDto
 import com.example.homeassistant.domain.database.AirQualityEntity
 import com.example.homeassistant.domain.database.CurrentWeatherEntity
 import com.example.homeassistant.repository.DatabaseRepository
+import com.example.homeassistant.repository.SettingsRepository
 import com.example.homeassistant.repository.WeatherApiRepository
+import com.example.homeassistant.ui.activity.MainActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
 class AddRecordsWorker(private val appContext: Context, private val params: WorkerParameters) :
     CoroutineWorker(appContext, params) {
 
+    companion object {
+        const val CHANNEL_ID = "channel_id"
+        const val NOTIFICATION_ID = 0
+    }
+
     private val weatherApiRepository = WeatherApiRepository()
     private val databaseRepository = DatabaseRepository(
         HomeAssistantDatabase.getDatabase(appContext)
+    )
+    private val settingsRepository = SettingsRepository(
+        SettingsDataSource(appContext),
+        PhonePermissionDataSource(appContext)
     )
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
@@ -53,6 +73,42 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
                 addAirQualityRecord(airQualityCallResult)
             }
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val settings = settingsRepository.getSettings().first()
+            if (settings.showNotifications) {
+                val intent = Intent(appContext, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                val pendingIntent: PendingIntent = PendingIntent.getActivity(
+                    appContext,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
+                val builder = NotificationCompat.Builder(appContext, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle(appContext.getString(R.string.lbl_notification_title))
+                    .setContentText(appContext.getString(R.string.lbl_notification_message))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                val channelName = appContext.getString(R.string.lbl_notification_channel_name)
+                val importance = NotificationManager.IMPORTANCE_DEFAULT
+                val descriptionText = appContext.getString(R.string.lbl_notification_description)
+                val channel = NotificationChannel(CHANNEL_ID, channelName, importance).apply {
+                    description = descriptionText
+                }
+                val notificationManager = appContext.getSystemService(
+                    Context.NOTIFICATION_SERVICE
+                ) as NotificationManager
+                notificationManager.createNotificationChannel(channel)
+                with(NotificationManagerCompat.from(appContext)) {
+                    notify(NOTIFICATION_ID, builder.build())
+                }
+            }
+        }
+
         return Result.success()
     }
 
@@ -64,23 +120,6 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
             appContext,
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun isBluetoothPermissionGranted(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            ActivityCompat.checkSelfPermission(
-                appContext,
-                Manifest.permission.BLUETOOTH_CONNECT
-            ) == PackageManager.PERMISSION_GRANTED
-        } else {
-            ActivityCompat.checkSelfPermission(
-                appContext,
-                Manifest.permission.BLUETOOTH
-            ) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
-                appContext,
-                Manifest.permission.BLUETOOTH_ADMIN
-            ) == PackageManager.PERMISSION_GRANTED
-        }
     }
 
     private suspend fun addCurrentWeatherRecord(currentWeatherCallResult: CallResult<CurrentWeatherDto>) {

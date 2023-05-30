@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:backgroundTint="?attr/colorSecondaryVariant">
+
+    <LinearLayout
+        android:id="@+id/a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Saturday, 5 May 2023" />
+
+            <View
+                android:id="@+id/separator1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="?attr/colorOutline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_time" />
+
+            <TextView
+                android:id="@+id/current_temperature_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="5dp"
+                android:text="@string/lbl_card_field_current_temperature_title"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator1" />
+
+            <TextView
+                android:id="@+id/current_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:drawablePadding="10dp"
+                android:textSize="36sp"
+                app:layout_constraintBottom_toTopOf="@id/horizontal_guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/current_temperature_title"
+                tools:text="22°C" />
+
+            <TextView
+                android:id="@+id/feels_like_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="5dp"
+                android:text="@string/lbl_card_field_feels_like_title"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_guideline" />
+
+            <TextView
+                android:id="@+id/feels_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:drawablePadding="10dp"
+                android:textSize="36sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/feels_like_title"
+                tools:text="22°C" />
+
+            <TextView
+                android:id="@+id/main_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:drawablePadding="10dp"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/text_bullet"
+                app:layout_constraintBottom_toTopOf="@id/weather_description"
+                app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
+                app:layout_constraintTop_toBottomOf="@id/separator1"
+                tools:text="Main" />
+
+            <TextView
+                android:id="@+id/weather_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:drawablePadding="10dp"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/text_bullet"
+                app:layout_constraintBottom_toTopOf="@id/min_temperature"
+                app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
+                app:layout_constraintTop_toBottomOf="@id/main_weather"
+                tools:text="Description" />
+
+            <TextView
+                android:id="@+id/min_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:drawablePadding="10dp"
+                android:text="@string/lbl_card_field_min_temperature"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/text_bullet"
+                app:layout_constraintBottom_toTopOf="@id/max_temperature"
+                app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
+                app:layout_constraintTop_toBottomOf="@id/weather_description" />
+
+            <TextView
+                android:id="@+id/max_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:drawablePadding="10dp"
+                android:text="@string/lbl_card_field_max_temperature"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/text_bullet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
+                app:layout_constraintTop_toBottomOf="@id/min_temperature" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vertical_guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontal_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/details_parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/details_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:visibility="visible">
+
+                <View
+                    android:id="@+id/separator2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="?attr/colorOutline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/current_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/lbl_card_field_pressure"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/text_bullet"
+                    app:layout_constraintBottom_toTopOf="@id/current_humidity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/separator2" />
+
+                <TextView
+                    android:id="@+id/current_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/lbl_card_field_humidity"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/text_bullet"
+                    app:layout_constraintBottom_toTopOf="@id/current_wind_speed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/current_pressure" />
+
+                <TextView
+                    android:id="@+id/current_wind_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/lbl_card_field_wind_speed"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/text_bullet"
+                    app:layout_constraintBaseline_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/current_humidity" />
+
+                <TextView
+                    android:id="@+id/current_visibility"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/lbl_card_field_visibility"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/text_bullet"
+                    app:layout_constraintBottom_toTopOf="@id/cloudiness"
+                    app:layout_constraintStart_toEndOf="@id/vertical_guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/separator2" />
+
+                <TextView
+                    android:id="@+id/cloudiness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/lbl_card_field_cloudiness"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/text_bullet"
+                    app:layout_constraintBottom_toTopOf="@id/precipitation"
+                    app:layout_constraintStart_toEndOf="@id/vertical_guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/current_visibility" />
+
+                <TextView
+                    android:id="@+id/precipitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="@string/lbl_card_field_cloudiness"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/text_bullet"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/vertical_guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/cloudiness" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vertical_guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

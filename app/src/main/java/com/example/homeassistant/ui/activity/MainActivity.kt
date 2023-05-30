@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_today,
-                R.id.nav_ten_days_weather,
+                R.id.nav_five_days_weather,
                 R.id.nav_air_quality,
                 R.id.nav_weather_records,
                 R.id.nav_air_quality_records,

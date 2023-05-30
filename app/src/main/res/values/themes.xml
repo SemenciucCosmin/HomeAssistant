@@ -7,9 +7,10 @@
         <item name="colorOnPrimary">@color/white</item>
 
         <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/gray_93</item>
 
         <item name="colorSecondary">@color/gray_93</item>
-        <item name="colorOnSurface">@color/gray_93</item>
+        <item name="colorSecondaryVariant">@color/white</item>
 
         <item name="colorOutline">@color/gray_93</item>
 

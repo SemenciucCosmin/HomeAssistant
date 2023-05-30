@@ -172,6 +172,11 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
         val temperatureType = TemperatureType.getByItemType(settings.temperatureUnit)
         val pressureType = PressureType.getByItemType(settings.pressureUnit)
         val speedType = SpeedType.getByItemType(settings.speedUnit)
+        val hourFormatStringId = if (settings.amPmHourFormat) {
+            R.string.lbl_hour_format_am_pm
+        } else {
+            R.string.lbl_hour_format
+        }
 
         val temperature = TemperatureType.getTempByType(rawTemperature, temperatureType)
         val feelsLike = TemperatureType.getTempByType(rawFeelsLike, temperatureType)
@@ -193,7 +198,11 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
             cloudiness = cloudiness,
             windSpeed = windSpeed,
             visibility = visibility,
-            precipitation = precipitation
+            precipitation = precipitation * 100,
+            temperatureValueStringId = temperatureType.valueStringId,
+            pressureValueStringId = pressureType.valueStringId,
+            speedValueStringId = speedType.valueStringId,
+            hourFormatStringId = hourFormatStringId,
         )
     }
 
@@ -243,6 +252,24 @@ class WeatherApiViewModel(private val weatherApiRepository: WeatherApiRepository
             fineParticlesEnum = FineParticlesEnum.getQualityByValue(fineParticles),
             coarseParticlesEnum = CoarseParticlesEnum.getQualityByValue(coarseParticles)
         )
+    }
+
+    fun updateFiveDaysWeatherCardState(forecast: Forecast){
+        val forecasts = _uiState.value?.fiveDaysWeather?.forecasts
+        val updatedForecasts = forecasts?.map {
+            if (it.dateTime == forecast.dateTime) {
+                it.copy(isExpanded = forecast.isExpanded)
+            } else {
+                it
+            }
+        }
+        updatedForecasts?.let {
+            _uiState.value?.let {
+                _uiState.value = it.copy(
+                    fiveDaysWeather = it.fiveDaysWeather?.copy(forecasts = updatedForecasts)
+                )
+            }
+        }
     }
 
     fun setStringIds(settings: Settings) {

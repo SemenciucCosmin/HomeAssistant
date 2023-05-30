@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_today" />
 
     <fragment
-        android:id="@+id/nav_ten_days_weather"
-        android:name="com.example.homeassistant.ui.fragment.TenDaysWeatherFragment"
-        android:label="@string/lbl_ten_days_weather"
-        tools:layout="@layout/fragment_ten_days_weather" />
+        android:id="@+id/nav_five_days_weather"
+        android:name="com.example.homeassistant.ui.fragment.FiveDaysWeatherFragment"
+        android:label="@string/lbl_five_days_weather"
+        tools:layout="@layout/fragment_five_days_weather" />
 
     <fragment
         android:id="@+id/nav_air_quality"

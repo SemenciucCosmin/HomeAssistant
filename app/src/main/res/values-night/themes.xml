@@ -10,6 +10,7 @@
         <item name="colorOnSurface">@color/gray_10</item>
 
         <item name="colorSecondary">@color/gray_10</item>
+        <item name="colorSecondaryVariant">@color/gray_93</item>
 
         <item name="colorOutline">@color/gray_10</item>
 

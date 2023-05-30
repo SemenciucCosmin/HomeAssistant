@@ -33,7 +33,6 @@ import java.util.Locale
 class WeatherRecordsFragment : Fragment() {
 
     companion object {
-        private const val BAR_WIDTH = 0.5f
         private const val SQUARE_SPACE = 0f
         private const val SQUARE_OFFSET = 2f
         private const val SQUARE_SIZE = 6f
@@ -101,8 +100,13 @@ class WeatherRecordsFragment : Fragment() {
 
     private fun setBarChart(weatherRecords: List<WeatherRecord>) {
         val formatter = SimpleDateFormat(getString(R.string.lbl_chart_date_format), Locale.ENGLISH)
-        val startDate = formatter.format(Date(weatherRecords.first().weather.dateTime * 1000))
-        val endDate = formatter.format(Date(weatherRecords.last().weather.dateTime * 1000 + 2592000000L))
+        val startMillis = if (weatherRecords.isEmpty()) {
+            System.currentTimeMillis()
+        } else {
+            weatherRecords.first().weather.dateTime * 1000
+        }
+        val startDate = formatter.format(Date(startMillis))
+        val endDate = formatter.format(Date(startMillis + 2592000000L))
         val lineData = LineData()
         val numberOfRecords = weatherRecords.size
         val mainColor = MaterialColors.getColor(
