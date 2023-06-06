@@ -1,6 +1,7 @@
 package com.example.homeassistant.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -27,6 +28,13 @@ class StartupChecksActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         Log.d(TAG, "Location permission granted: $isGranted")
+        checkNotificationsPermission()
+    }
+
+    private val notificationsPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        Log.d(TAG, "Notifications permission granted: $isGranted")
         MainActivity.startActivity(this)
         this.finish()
         overridePendingTransition(0, 0)
@@ -71,12 +79,28 @@ class StartupChecksActivity : AppCompatActivity() {
             fineLocationPermission == PackageManager.PERMISSION_GRANTED
         ) {
             Log.d(TAG, "Location permission is already granted")
+            checkNotificationsPermission()
+        } else {
+            Log.d(TAG, "Launch request for location permission")
+            locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    @SuppressLint("InlinedApi")
+    private fun checkNotificationsPermission() {
+        val postNotificationsPermission = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        )
+
+        if (postNotificationsPermission == PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "Notifications permission is already granted")
             MainActivity.startActivity(this)
             this.finish()
             overridePendingTransition(0, 0)
         } else {
-            Log.d(TAG, "Launch request for location permission")
-            locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            Log.d(TAG, "Launch request for notifications permission")
+            notificationsPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 }

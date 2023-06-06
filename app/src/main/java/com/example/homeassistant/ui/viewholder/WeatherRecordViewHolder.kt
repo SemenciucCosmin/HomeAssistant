@@ -10,6 +10,10 @@ import java.util.Date
 import java.util.Locale
 
 class WeatherRecordViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    companion object {
+        private const val MILLIS_MULTIPLIER = 1000
+    }
+
     private val weatherRecordDate = view.findViewById<TextView>(R.id.weather_record_date)
     private val mainWeatherField = view.findViewById<TextView>(R.id.main_weather_field)
     private val descriptionField = view.findViewById<TextView>(R.id.description_field)
@@ -37,14 +41,14 @@ class WeatherRecordViewHolder(private val view: View) : RecyclerView.ViewHolder(
             Locale.ENGLISH
         )
 
-        val date = dateFormatter.format(Date(weatherRecord.weather.dateTime * 1000))
+        val date = dateFormatter.format(Date(weatherRecord.weather.dateTime * MILLIS_MULTIPLIER))
 
         val sunriseTimeFormatted = timeFormatter.format(
-            Date(weatherRecord.weather.sunriseTime * 1000)
+            Date(weatherRecord.weather.sunriseTime * MILLIS_MULTIPLIER)
         )
 
         val sunsetTimeFormatted = timeFormatter.format(
-            Date(weatherRecord.weather.sunsetTime * 1000)
+            Date(weatherRecord.weather.sunsetTime * MILLIS_MULTIPLIER)
         )
 
         val temperatureFormatted = view.context.getString(

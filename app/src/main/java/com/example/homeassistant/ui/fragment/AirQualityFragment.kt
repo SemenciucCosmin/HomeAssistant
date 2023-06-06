@@ -115,10 +115,7 @@ class AirQualityFragment : Fragment() {
     }
     private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModel.SettingsViewModelFactory(
-            SettingsRepository(
-                SettingsDataSource(requireContext()),
-                PhonePermissionDataSource(requireContext())
-            )
+            SettingsRepository(SettingsDataSource(requireContext()))
         )
     }
 

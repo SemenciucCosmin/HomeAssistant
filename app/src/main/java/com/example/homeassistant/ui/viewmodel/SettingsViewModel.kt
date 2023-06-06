@@ -17,7 +17,7 @@ class SettingsViewModel(private val settingsRepository: SettingsRepository) : Vi
 
      fun saveAmPamHourFormatToPreferenceStore(amPmHourFormat: Boolean, context: Context) {
         viewModelScope.launch {
-            settingsRepository.saveAmPamHourFormatToPreferenceStore(amPmHourFormat, context)
+            settingsRepository.saveAmPmHourFormatToPreferenceStore(amPmHourFormat, context)
         }
     }
 

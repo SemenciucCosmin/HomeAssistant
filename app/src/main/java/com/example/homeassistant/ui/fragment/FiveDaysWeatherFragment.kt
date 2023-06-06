@@ -25,6 +25,10 @@ import java.util.Date
 import java.util.Locale
 
 class FiveDaysWeatherFragment : Fragment(), FiveDaysWeatherCallback {
+    companion object {
+        private const val MILLIS_MULTIPLIER = 1000
+    }
+
     private lateinit var cityNameView: TextView
     private lateinit var sunriseTimeView: TextView
     private lateinit var sunsetTimeView: TextView
@@ -33,10 +37,7 @@ class FiveDaysWeatherFragment : Fragment(), FiveDaysWeatherCallback {
     }
     private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModel.SettingsViewModelFactory(
-            SettingsRepository(
-                SettingsDataSource(requireContext()),
-                PhonePermissionDataSource(requireContext())
-            )
+            SettingsRepository(SettingsDataSource(requireContext()))
         )
     }
 
@@ -80,8 +81,8 @@ class FiveDaysWeatherFragment : Fragment(), FiveDaysWeatherCallback {
 
     private fun setViews(city: City, hourFormatStringId: Int) {
         val timeFormatter = SimpleDateFormat(getString(hourFormatStringId), Locale.ENGLISH)
-        val sunriseTimeFormatted = timeFormatter.format(Date(city.sunriseTime * 1000))
-        val sunsetTimeFormatted = timeFormatter.format(Date(city.sunsetTime * 1000))
+        val sunriseTimeFormatted = timeFormatter.format(Date(city.sunriseTime * MILLIS_MULTIPLIER))
+        val sunsetTimeFormatted = timeFormatter.format(Date(city.sunsetTime * MILLIS_MULTIPLIER))
 
         cityNameView.text = city.name
         sunriseTimeView.text = getString(R.string.lbl_card_field_sunrise, sunriseTimeFormatted)

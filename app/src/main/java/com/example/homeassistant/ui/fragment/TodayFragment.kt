@@ -1,22 +1,14 @@
 package com.example.homeassistant.ui.fragment
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -32,19 +24,20 @@ import com.example.homeassistant.domain.settings.TemperatureType
 import com.example.homeassistant.repository.BluetoothRepository
 import com.example.homeassistant.repository.SettingsRepository
 import com.example.homeassistant.repository.WeatherApiRepository
-import com.example.homeassistant.ui.activity.MainActivity
 import com.example.homeassistant.ui.viewmodel.BluetoothViewModel
 import com.example.homeassistant.ui.viewmodel.SettingsViewModel
 import com.example.homeassistant.ui.viewmodel.WeatherApiViewModel
 import com.example.homeassistant.utils.showBluetoothPermissionRationale
 import com.example.homeassistant.utils.showBluetoothStatusRationale
-import com.example.homeassistant.worker.AddRecordsWorker
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
 class TodayFragment : Fragment() {
+    companion object {
+        private const val MILLIS_MULTIPLIER = 1000
+    }
 
     private lateinit var cardCurrentWeather: View
     private lateinit var cardWeatherMeasurements: View
@@ -85,10 +78,7 @@ class TodayFragment : Fragment() {
     }
     private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModel.SettingsViewModelFactory(
-            SettingsRepository(
-                SettingsDataSource(requireContext()),
-                PhonePermissionDataSource(requireContext())
-            )
+            SettingsRepository(SettingsDataSource(requireContext()))
         )
     }
     private val bluetoothViewModel: BluetoothViewModel by viewModels {
@@ -301,8 +291,8 @@ class TodayFragment : Fragment() {
         hourValueStringId: Int
     ) {
         val timeFormatter = SimpleDateFormat(getString(hourValueStringId), Locale.ENGLISH)
-        val sunriseTimeFormatted = timeFormatter.format(Date(sunriseTime * 1000))
-        val sunsetTimeFormatted = timeFormatter.format(Date(sunsetTime * 1000))
+        val sunriseTimeFormatted = timeFormatter.format(Date(sunriseTime * MILLIS_MULTIPLIER))
+        val sunsetTimeFormatted = timeFormatter.format(Date(sunsetTime * MILLIS_MULTIPLIER))
 
         cityView.text = getString(R.string.lbl_card_field_city, cityName)
         sunriseView.text = getString(R.string.lbl_card_field_sunrise, sunriseTimeFormatted)

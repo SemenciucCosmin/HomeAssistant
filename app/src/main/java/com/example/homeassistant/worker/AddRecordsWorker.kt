@@ -16,7 +16,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.homeassistant.R
 import com.example.homeassistant.database.HomeAssistantDatabase
-import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.api.CallResult
 import com.example.homeassistant.domain.api.dto.AirQualityDto
@@ -37,28 +36,26 @@ class AddRecordsWorker(private val appContext: Context, private val params: Work
     companion object {
         const val CHANNEL_ID = "channel_id"
         const val NOTIFICATION_ID = 0
+        const val NO_LOCATION = 0.0
     }
 
     private val weatherApiRepository = WeatherApiRepository()
     private val databaseRepository = DatabaseRepository(
         HomeAssistantDatabase.getDatabase(appContext)
     )
-    private val settingsRepository = SettingsRepository(
-        SettingsDataSource(appContext),
-        PhonePermissionDataSource(appContext)
-    )
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
+    private val settingsRepository = SettingsRepository(SettingsDataSource(appContext))
+    private var latitude: Double = NO_LOCATION
+    private var longitude: Double = NO_LOCATION
 
     @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
         withContext(Dispatchers.IO) {
             if (isLocationPermissionGranted()) {
-                latitude = params.inputData.getDouble("latitude", 0.0)
-                longitude = params.inputData.getDouble("longitude", 0.0)
+                latitude = params.inputData.getDouble(MainActivity.LATITUDE_KEY, NO_LOCATION)
+                longitude = params.inputData.getDouble(MainActivity.LONGITUDE_KEY, NO_LOCATION)
             }
 
-            if (latitude != 0.0 && longitude != 0.0) {
+            if (latitude != NO_LOCATION && longitude != NO_LOCATION) {
                 val currentWeatherCallResult = weatherApiRepository.getCurrentWeather(
                     latitude = latitude,
                     longitude = longitude

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homeassistant.R
 import com.example.homeassistant.database.HomeAssistantDatabase
-import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.domain.WeatherRecord
 import com.example.homeassistant.domain.settings.TemperatureType
@@ -31,7 +30,6 @@ import java.util.Date
 import java.util.Locale
 
 class WeatherRecordsFragment : Fragment() {
-
     companion object {
         private const val SQUARE_SPACE = 0f
         private const val SQUARE_OFFSET = 2f
@@ -41,6 +39,8 @@ class WeatherRecordsFragment : Fragment() {
         private const val NO_LABEL = ""
         private const val KELVIN_AXIS_MINIMUM = 233.15
         private const val KELVIN_AXIS_MAXIMUM = 323.15
+        private const val MILLIS_MULTIPLIER = 1000
+        private const val THIRTY_DAYS_MILLIS = 2592000000L
     }
 
     private var axisMinimum: Double = KELVIN_AXIS_MINIMUM
@@ -55,10 +55,7 @@ class WeatherRecordsFragment : Fragment() {
     }
     private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModel.SettingsViewModelFactory(
-            SettingsRepository(
-                SettingsDataSource(requireContext()),
-                PhonePermissionDataSource(requireContext())
-            )
+            SettingsRepository(SettingsDataSource(requireContext()))
         )
     }
 
@@ -103,10 +100,10 @@ class WeatherRecordsFragment : Fragment() {
         val startMillis = if (weatherRecords.isEmpty()) {
             System.currentTimeMillis()
         } else {
-            weatherRecords.first().weather.dateTime * 1000
+            weatherRecords.first().weather.dateTime * MILLIS_MULTIPLIER
         }
         val startDate = formatter.format(Date(startMillis))
-        val endDate = formatter.format(Date(startMillis + 2592000000L))
+        val endDate = formatter.format(Date(startMillis + THIRTY_DAYS_MILLIS))
         val lineData = LineData()
         val numberOfRecords = weatherRecords.size
         val mainColor = MaterialColors.getColor(
@@ -157,8 +154,6 @@ class WeatherRecordsFragment : Fragment() {
             setTouchEnabled(false)
             axisLeft.textColor = mainColor
             axisRight.isEnabled = false
-//            xAxis.isEnabled = false
-//            axisLeft.setDrawAxisLine(false)
             description.isEnabled = false
             axisLeft.axisMaximum = axisMaximum.toFloat()
             axisLeft.axisMinimum = axisMinimum.toFloat()

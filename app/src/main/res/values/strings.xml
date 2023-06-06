@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">Home Assistant</string>
 
-    <string name="bluetooth_permission_rationale_title">Enable bluetooth permission</string>
-    <string name="bluetooth_permission_rationale_message">Please enable bluetooth permission from app settings in order to receive data from the device</string>
+    <string name="lbl_bluetooth_permission_rationale_title">Enable bluetooth permission</string>
+    <string name="lbl_bluetooth_permission_rationale_message">Please enable bluetooth permission from app settings in order to receive data from the device</string>
 
-    <string name="bluetooth_status_rationale_title">Turn bluetooth on</string>
-    <string name="bluetooth_status_rationale_message">Please turn bluetooth on in order to receive data from the device</string>
+    <string name="lbl_bluetooth_status_rationale_title">Turn bluetooth on</string>
+    <string name="lbl_bluetooth_status_rationale_message">Please turn bluetooth on in order to receive data from the device</string>
+
+    <string name="lbl_location_permission_rationale_title">Enable location permission</string>
+    <string name="lbl_location_permission_rationale_message">Please enable location permission from app settings in order to see the weather data</string>
+
+    <string name="lbl_notifications_permission_rationale_title">Enable notifications permission</string>
+    <string name="lbl_notifications_permission_rationale_message">Please enable notifications permission from app settings in order to receive useful notifications.</string>
 
     <string name="lbl_cancel">Cancel</string>
     <string name="lbl_settings">Settings</string>

@@ -19,6 +19,9 @@ import java.util.Date
 import java.util.Locale
 
 class AirQualityRecordViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    companion object {
+        private const val MILLIS_MULTIPLIER = 1000
+    }
     private val airQualityRecordDate = view.findViewById<TextView>(R.id.air_quality_record_date)
     private val airQualityValue = view.findViewById<TextView>(R.id.air_quality_value)
     private val airQualityQuality = view.findViewById<TextView>(R.id.air_quality_quality)
@@ -44,7 +47,7 @@ class AirQualityRecordViewHolder(private val view: View) : RecyclerView.ViewHold
             view.context.getString(R.string.lbl_record_date_format),
             Locale.ENGLISH
         )
-        val date = timeFormatter.format(Date(airQuality.dateTime * 1000))
+        val date = timeFormatter.format(Date(airQuality.dateTime * MILLIS_MULTIPLIER))
         airQualityRecordDate.text = date
 
         airQualityValue.text = airQuality.airQualityIndex.toString()

@@ -60,7 +60,7 @@ class SettingsDataSource(context: Context) {
         )
     }
 
-    suspend fun saveAmPamHourFormatToPreferenceStore(amPmHourFormat: Boolean, context: Context) {
+    suspend fun saveAmPmHourFormatToPreferenceStore(amPmHourFormat: Boolean, context: Context) {
         context.dataStore.edit { preferences ->
             preferences[this.amPmHourFormat] = amPmHourFormat
         }

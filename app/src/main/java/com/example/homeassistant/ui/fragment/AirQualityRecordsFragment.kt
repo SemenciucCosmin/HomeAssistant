@@ -37,6 +37,8 @@ class AirQualityRecordsFragment : Fragment() {
         private const val DEFAULT_RECORD_VALUE = 0f
         private const val MAXIMUM_INDEX = 29
         private const val NO_LABEL = ""
+        private const val THIRTY_DAYS_MILLIS = 2592000000L
+        private const val MILLIS_MULTIPLIER = 1000
     }
 
     private lateinit var barChart: BarChart
@@ -83,10 +85,10 @@ class AirQualityRecordsFragment : Fragment() {
         val startMillis = if (airQualityRecords.isEmpty()) {
             System.currentTimeMillis()
         } else {
-            airQualityRecords.first().dateTime * 1000
+            airQualityRecords.first().dateTime * MILLIS_MULTIPLIER
         }
         val startDate = formatter.format(Date(startMillis))
-        val endDate = formatter.format(Date(startMillis + 2592000000L))
+        val endDate = formatter.format(Date(startMillis + THIRTY_DAYS_MILLIS))
         val barData = BarData()
         val numberOfRecords = airQualityRecords.size
         val mainColor = MaterialColors.getColor(

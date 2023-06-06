@@ -14,5 +14,4 @@ const val KPA_TYPE = "kpa"
 const val MM_HG_TYPE = "mm_hg"
 const val IN_HG_TYPE = "in_hg"
 
-
 const val API_ERROR_MESSAGE = "Network exception occurred"

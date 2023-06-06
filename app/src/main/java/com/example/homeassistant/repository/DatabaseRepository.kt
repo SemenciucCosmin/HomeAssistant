@@ -16,5 +16,4 @@ class DatabaseRepository(private val homeAssistantDatabase: HomeAssistantDatabas
 
     suspend fun insertAirQualityEntity(airQualityEntity: AirQualityEntity) =
         homeAssistantDatabase.airQualityDao().insert(airQualityEntity)
-
 }

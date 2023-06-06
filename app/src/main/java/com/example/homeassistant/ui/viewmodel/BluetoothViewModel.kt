@@ -34,6 +34,9 @@ class BluetoothViewModel(private val bluetoothRepository: BluetoothRepository) :
         private const val HUMIDITY = 1
         private const val MINIMUM_DATA_SIZE = 2
         private const val DELIMITER = ";"
+        private const val NO_INPUT_STREAM_BYTES = 0
+        private const val KELVIN_DIFFERENCE = 273.15
+        private const val NO_HUMIDITY = 0
     }
 
     private val _uiState = MutableLiveData<UiState>().apply {
@@ -114,7 +117,7 @@ class BluetoothViewModel(private val bluetoothRepository: BluetoothRepository) :
 
                 while (true) {
                     try {
-                        if (socketInputStream.available() > 0) {
+                        if (socketInputStream.available() > NO_INPUT_STREAM_BYTES) {
                             delay(DELAY_TIME)
                             bytes = socketInputStream.read(buffer)
                             val message = String(buffer, NO_OFFSET, bytes)
@@ -122,7 +125,7 @@ class BluetoothViewModel(private val bluetoothRepository: BluetoothRepository) :
                             if (data.size >= MINIMUM_DATA_SIZE) {
                                 _uiState.postValue(
                                     _uiState.value?.copy(
-                                        temperature = data[TEMPERATURE].toDouble() + 273.15,
+                                        temperature = data[TEMPERATURE].toDouble() + KELVIN_DIFFERENCE,
                                         humidity = data[HUMIDITY].toDouble().toInt()
                                     )
                                 )
@@ -144,8 +147,8 @@ class BluetoothViewModel(private val bluetoothRepository: BluetoothRepository) :
 
     data class UiState(
         val bluetoothDevices: List<StatefulBluetoothDevice>,
-        val temperature: Double = 273.15,
-        val humidity: Int = 0,
+        val temperature: Double = KELVIN_DIFFERENCE,
+        val humidity: Int = NO_HUMIDITY,
         val temperatureType: TemperatureType = TemperatureType.CELSIUS
     )
 

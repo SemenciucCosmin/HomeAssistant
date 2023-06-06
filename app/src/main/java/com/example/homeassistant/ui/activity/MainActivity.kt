@@ -21,10 +21,12 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.example.homeassistant.R
-import com.example.homeassistant.datasource.PhonePermissionDataSource
 import com.example.homeassistant.datasource.SettingsDataSource
 import com.example.homeassistant.repository.SettingsRepository
 import com.example.homeassistant.ui.viewmodel.SettingsViewModel
+import com.example.homeassistant.utils.showBluetoothPermissionRationale
+import com.example.homeassistant.utils.showLocationPermissionRationale
+import com.example.homeassistant.utils.showNotificationsPermissionRationale
 import com.example.homeassistant.worker.AddRecordsWorker
 import com.example.homeassistant.worker.CleanRecordsWorker
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -43,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         private const val CLEAN_RECORDS_WORKER_TAG = "clean_records_worker"
         private const val ADD_RECORDS_WORKER_INTERVAL = 24L
         private const val CLEAN_RECORDS_WORKER_INTERVAL = 120L
+        private const val WORKER_START_TIME = 12
+        private const val WORKER_DELAY_TIME = 25
+        const val LATITUDE_KEY = "latitude"
+        const val LONGITUDE_KEY = "longitude"
         fun startActivity(activity: StartupChecksActivity) {
             val intent = Intent(activity, MainActivity::class.java)
             activity.startActivity(intent)
@@ -53,10 +59,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModel.SettingsViewModelFactory(
-            SettingsRepository(
-                SettingsDataSource(this),
-                PhonePermissionDataSource(this)
-            )
+            SettingsRepository(SettingsDataSource(this))
         )
     }
 
@@ -95,15 +98,15 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val delay = if (DateTime.now().hourOfDay < 12) {
+        val delay = if (DateTime.now().hourOfDay < WORKER_START_TIME) {
             Duration(
                 DateTime.now(),
-                DateTime.now().withTimeAtStartOfDay().plusHours(12)
+                DateTime.now().withTimeAtStartOfDay().plusHours(WORKER_START_TIME)
             ).standardMinutes
         } else {
             Duration(
                 DateTime.now(),
-                DateTime.now().withTimeAtStartOfDay().plusDays(1).plusHours(1)
+                DateTime.now().withTimeAtStartOfDay().plusHours(WORKER_DELAY_TIME)
             ).standardMinutes
         }
 
@@ -116,37 +119,48 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                location?.let {
-                    settingsViewModel.saveLocationToPreferenceStore(
-                        com.example.homeassistant.domain.settings.Location(
-                            location.latitude,
-                            location.longitude
-                        ),
-                        this
-                    )
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        settingsViewModel.saveLocationToPreferenceStore(
+                            com.example.homeassistant.domain.settings.Location(
+                                location.latitude,
+                                location.longitude
+                            ),
+                            this
+                        )
 
-                    val data = Data.Builder()
-                    data.putDouble("latitude", location.latitude)
-                    data.putDouble("longitude", location.longitude)
+                        val data = Data.Builder()
+                        data.putDouble(LATITUDE_KEY, location.latitude)
+                        data.putDouble(LONGITUDE_KEY, location.longitude)
 
-                    val addRecordsWorkRequest: PeriodicWorkRequest = PeriodicWorkRequest.Builder(
-                        AddRecordsWorker::class.java,
-                        ADD_RECORDS_WORKER_INTERVAL,
-                        TimeUnit.HOURS
-                    )
-                        .addTag(ADD_RECORDS_WORKER_TAG)
-                        .setInputData(data.build())
-                        .setInitialDelay(delay, TimeUnit.MINUTES)
-                        .build()
+                        val addRecordsWorkRequest: PeriodicWorkRequest =
+                            PeriodicWorkRequest.Builder(
+                                AddRecordsWorker::class.java,
+                                ADD_RECORDS_WORKER_INTERVAL,
+                                TimeUnit.HOURS
+                            )
+                                .addTag(ADD_RECORDS_WORKER_TAG)
+                                .setInputData(data.build())
+                                .setInitialDelay(delay, TimeUnit.MINUTES)
+                                .build()
 
-                    WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                        ADD_RECORDS_WORKER_TAG,
-                        ExistingPeriodicWorkPolicy.KEEP,
-                        addRecordsWorkRequest
-                    )
+                        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                            ADD_RECORDS_WORKER_TAG,
+                            ExistingPeriodicWorkPolicy.KEEP,
+                            addRecordsWorkRequest
+                        )
+                    }
                 }
+            } else {
+                showNotificationsPermissionRationale(this)
             }
+        } else {
+            showLocationPermissionRationale(this)
         }
 
         val cleanRecordsWorkRequest: PeriodicWorkRequest = PeriodicWorkRequest.Builder(
