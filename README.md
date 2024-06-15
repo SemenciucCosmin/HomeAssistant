@@ -20,3 +20,24 @@ Additionally, it integrates with an open weather API for comprehensive weather i
 **• Data Visualization:** Plotting historical data for insights.<br>
 **• Background Processing:** Using workers for scheduled tasks.<br>
 **• Notification Handling:** Sending alerts for new data.<br>
+
+<p float="left">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Light_Today.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Dark_Today.png" width="180">
+</p>
+
+<p float="left">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Light_5_Days_Weather.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Light_Weather_Records.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Light_Device_Management.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Light_Settings.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Light_Navigation_Drawer.png" width="180">
+</p>
+
+<p float="left">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Dark_5_Days_Weather.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Dark_Weather_Records.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Dark_Device_Management.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Dark_Settings.png" width="180">
+  <img src="https://github.com/SemenciucCosmin/HomeAssistant/blob/main/screenshots/HomeAssistant_Dark_Navigation_Drawer.png" width="180">
+</p>
